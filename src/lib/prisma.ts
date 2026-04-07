@@ -1,19 +1,23 @@
-import { PrismaClient } from "@prisma/client";
-import Database from "better-sqlite3";
-import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
-
-// Robust connection string extraction
-const connectionString = (process.env.DATABASE_URL || "file:./dev.db").toString();
-const dbFile = connectionString.includes("file:") ? connectionString.replace("file:", "") : connectionString;
-
-// Initialize the SQLite database connection using absolute path for robustness
-const adapter = new PrismaBetterSqlite3({ url: dbFile });
+import { PrismaNeonHttp } from '@prisma/adapter-neon';
+import { PrismaClient } from '../../prisma/client';
+import 'dotenv/config';
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
 
-// Singleton Prisma instance for Next.js 15
+const connectionString = process.env.DATABASE_URL;
+
+console.log('--- PRISMA DIAGNOSTICS (HTTP) ---');
+console.log('DATABASE_URL length:', connectionString?.length ?? 0);
+
+if (!connectionString) {
+  throw new Error('DATABASE_URL environment variable is not set. Check your .env file or build settings.');
+}
+
+// Initialize the Prisma Client with the official Neon HTTP adapter (v7+)
+const adapter = new PrismaNeonHttp(connectionString, {});
+
 export const prisma = globalForPrisma.prisma ?? new PrismaClient({ adapter });
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
