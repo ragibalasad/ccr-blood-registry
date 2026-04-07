@@ -6,9 +6,15 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "sqlite",
   }),
-  // Hardcoded for local dev to avoid any env loading issues causing "replace" errors
-  baseURL: "http://localhost:3000",
-  secret: "sdlkfhaskfhklaslhflashfklashlf_at_least_32_chars_now",
+  // Dynamically set baseURL if possible, but fallback to env for Better Auth inference
+  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
+  secret: process.env.BETTER_AUTH_SECRET,
+  socialProviders: {
+     google: {
+        clientId: process.env.GOOGLE_CLIENT_ID || "",
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+     }
+  },
   emailAndPassword: {
     enabled: true,
   },

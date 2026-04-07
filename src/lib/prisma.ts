@@ -6,9 +6,8 @@ import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 const connectionString = (process.env.DATABASE_URL || "file:./dev.db").toString();
 const dbFile = connectionString.includes("file:") ? connectionString.replace("file:", "") : connectionString;
 
-// Initialize the SQLite database connection
-const sqlite = new Database(dbFile);
-const adapter = new PrismaBetterSqlite3(sqlite);
+// Initialize the SQLite database connection using absolute path for robustness
+const adapter = new PrismaBetterSqlite3({ url: dbFile });
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
