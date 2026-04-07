@@ -53,7 +53,7 @@ export default function SearchClient({
     <div className="flex flex-col md:flex-row gap-8 items-start">
 
       {/* Sidebar Filter */}
-      <div className="w-full md:w-56 shrink-0 flex flex-col gap-2 sticky top-24">
+      <div className="w-full md:w-56 shrink-0 flex flex-col gap-2 sticky top-24 bg-slate-50 max-sm:pb-2 max-sm:border-b max-sm:border-slate-200">
         <h2 className="font-semibold text-slate-900 text-sm mb-2 font-display">Filters</h2>
 
         {/* Eligibility Toggle */}
@@ -78,7 +78,7 @@ export default function SearchClient({
           All Donors
         </button>
 
-        <div className="grid grid-cols-2 gap-2 mt-2">
+        <div className="grid grid-cols-2 max-sm:grid-cols-4 gap-2 mt-2">
           {bloodGroups.map(bg => (
             <button
               key={bg}

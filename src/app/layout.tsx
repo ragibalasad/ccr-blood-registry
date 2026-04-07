@@ -6,8 +6,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "CCR Directory",
-  description: "College blood donor registry",
+  title: "CCR Blood Group Database",
+  description: "Carmichael College blood donor registry",
 };
 
 export default function RootLayout({
