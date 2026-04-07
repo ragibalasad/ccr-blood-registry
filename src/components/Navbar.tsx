@@ -28,24 +28,24 @@ export default function Navbar() {
         name: "Dev User",
         fetchOptions: {
           onSuccess: () => {
-             window.location.href = "/profile";
+            window.location.href = "/profile";
           },
           onError: async (ctx) => {
-             // If account already exists (common during dev), just sign in
-             if (ctx.error.message?.includes("exists") || ctx.error.status === 400) {
-                 await signIn.email({
-                    email: devEmail,
-                    password: devPass,
-                    fetchOptions: {
-                       onSuccess: () => { window.location.href = "/profile"; },
-                       onError: (sCtx) => {
-                         alert(`Auth failed: ${sCtx.error.message || "Unknown error"}`);
-                       }
-                    }
-                 });
-             } else {
-                 alert(`Dev entry failed: ${ctx.error.message || "General failure"}`);
-             }
+            // If account already exists (common during dev), just sign in
+            if (ctx.error.message?.includes("exists") || ctx.error.status === 400) {
+              await signIn.email({
+                email: devEmail,
+                password: devPass,
+                fetchOptions: {
+                  onSuccess: () => { window.location.href = "/profile"; },
+                  onError: (sCtx) => {
+                    alert(`Auth failed: ${sCtx.error.message || "Unknown error"}`);
+                  }
+                }
+              });
+            } else {
+              alert(`Dev entry failed: ${ctx.error.message || "General failure"}`);
+            }
           }
         }
       });
@@ -59,15 +59,15 @@ export default function Navbar() {
   return (
     <nav className="border-b border-slate-200 bg-white sticky top-0 z-50">
       <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
-        
+
         <Link href="/" className="flex items-center gap-2">
           <Droplet className="w-5 h-5 text-red-600 fill-red-600" />
-          <span className="text-base font-bold text-slate-900 tracking-tight">CCR Database</span>
+          <span className="text-base font-bold text-slate-900 tracking-tight">CCR Blood Database</span>
         </Link>
-        
+
         <div className="flex items-center gap-2">
           {process.env.NODE_ENV !== "production" && !session && !isPending && (
-             <button 
+            <button
               onClick={handleDevLogin}
               disabled={loadingDev}
               className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-emerald-600 rounded-md hover:bg-emerald-700 shadow-sm border border-emerald-700 disabled:opacity-50"
@@ -88,8 +88,8 @@ export default function Navbar() {
                 <User className="w-4 h-4" />
                 <span className="hidden sm:inline">My Record</span>
               </Link>
-              <button 
-                onClick={handleSignOut} 
+              <button
+                onClick={handleSignOut}
                 className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slate-600 hover:text-rose-600 rotate-0 hover:bg-rose-50 rounded"
               >
                 <LogOut className="w-4 h-4" />

@@ -9,16 +9,20 @@ export default function Home() {
   return (
     <div className="flex flex-col flex-1 px-4 lg:px-0 py-12 md:py-20 max-w-3xl">
       <div className="mb-8 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-sm font-medium w-max">
-        <ActivitySquare className="w-4 h-4 text-slate-500" />
-        College registry
+        {/* <ActivitySquare className="w-4 h-4 text-slate-500" /> */}
+        <span className="relative flex h-3 w-3">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-600 opacity-75"></span>
+          <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-600"></span>
+        </span>
+        Carmichael College Rangpur
       </div>
-      
+
       <h1 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight mb-6">
-        Student Blood Registry
+        Student Blood Group Registry
       </h1>
-      
+
       <p className="text-lg text-slate-600 mb-10 leading-relaxed max-w-2xl">
-        An open, collaborative directory of emergency blood donors managed directly by students. 
+        An open, collaborative directory of emergency blood donors managed directly by the students of CCR.
         Add your details to the directory to assist peers during medical emergencies.
       </p>
 
@@ -48,7 +52,7 @@ export default function Home() {
             Query the collaborative database to find registered students by specific blood groups. Get immediate access to their provided contact endpoints.
           </p>
         </div>
-        
+
         <div>
           <h3 className="text-lg font-semibold text-slate-900 mb-2">Contribute Data</h3>
           <p className="text-slate-600 text-sm leading-relaxed">
