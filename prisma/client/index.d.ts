@@ -1199,6 +1199,7 @@ export namespace Prisma {
     bloodGroup: string | null
     contactInfo: string | null
     department: string | null
+    sessionYear: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1212,6 +1213,7 @@ export namespace Prisma {
     bloodGroup: string | null
     contactInfo: string | null
     department: string | null
+    sessionYear: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1225,6 +1227,7 @@ export namespace Prisma {
     bloodGroup: number
     contactInfo: number
     department: number
+    sessionYear: number
     _all: number
   }
 
@@ -1240,6 +1243,7 @@ export namespace Prisma {
     bloodGroup?: true
     contactInfo?: true
     department?: true
+    sessionYear?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1253,6 +1257,7 @@ export namespace Prisma {
     bloodGroup?: true
     contactInfo?: true
     department?: true
+    sessionYear?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1266,6 +1271,7 @@ export namespace Prisma {
     bloodGroup?: true
     contactInfo?: true
     department?: true
+    sessionYear?: true
     _all?: true
   }
 
@@ -1352,6 +1358,7 @@ export namespace Prisma {
     bloodGroup: string | null
     contactInfo: string | null
     department: string | null
+    sessionYear: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1382,6 +1389,7 @@ export namespace Prisma {
     bloodGroup?: boolean
     contactInfo?: boolean
     department?: boolean
+    sessionYear?: boolean
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1398,6 +1406,7 @@ export namespace Prisma {
     bloodGroup?: boolean
     contactInfo?: boolean
     department?: boolean
+    sessionYear?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1411,6 +1420,7 @@ export namespace Prisma {
     bloodGroup?: boolean
     contactInfo?: boolean
     department?: boolean
+    sessionYear?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1424,9 +1434,10 @@ export namespace Prisma {
     bloodGroup?: boolean
     contactInfo?: boolean
     department?: boolean
+    sessionYear?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "bloodGroup" | "contactInfo" | "department", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "bloodGroup" | "contactInfo" | "department" | "sessionYear", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
@@ -1452,6 +1463,7 @@ export namespace Prisma {
       bloodGroup: string | null
       contactInfo: string | null
       department: string | null
+      sessionYear: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1887,6 +1899,7 @@ export namespace Prisma {
     readonly bloodGroup: FieldRef<"User", 'String'>
     readonly contactInfo: FieldRef<"User", 'String'>
     readonly department: FieldRef<"User", 'String'>
+    readonly sessionYear: FieldRef<"User", 'String'>
   }
     
 
@@ -5652,7 +5665,8 @@ export namespace Prisma {
     updatedAt: 'updatedAt',
     bloodGroup: 'bloodGroup',
     contactInfo: 'contactInfo',
-    department: 'department'
+    department: 'department',
+    sessionYear: 'sessionYear'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -5798,6 +5812,7 @@ export namespace Prisma {
     bloodGroup?: StringNullableFilter<"User"> | string | null
     contactInfo?: StringNullableFilter<"User"> | string | null
     department?: StringNullableFilter<"User"> | string | null
+    sessionYear?: StringNullableFilter<"User"> | string | null
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
   }
@@ -5813,6 +5828,7 @@ export namespace Prisma {
     bloodGroup?: SortOrderInput | SortOrder
     contactInfo?: SortOrderInput | SortOrder
     department?: SortOrderInput | SortOrder
+    sessionYear?: SortOrderInput | SortOrder
     sessions?: SessionOrderByRelationAggregateInput
     accounts?: AccountOrderByRelationAggregateInput
   }
@@ -5831,6 +5847,7 @@ export namespace Prisma {
     bloodGroup?: StringNullableFilter<"User"> | string | null
     contactInfo?: StringNullableFilter<"User"> | string | null
     department?: StringNullableFilter<"User"> | string | null
+    sessionYear?: StringNullableFilter<"User"> | string | null
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
   }, "id" | "email">
@@ -5846,6 +5863,7 @@ export namespace Prisma {
     bloodGroup?: SortOrderInput | SortOrder
     contactInfo?: SortOrderInput | SortOrder
     department?: SortOrderInput | SortOrder
+    sessionYear?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -5865,6 +5883,7 @@ export namespace Prisma {
     bloodGroup?: StringNullableWithAggregatesFilter<"User"> | string | null
     contactInfo?: StringNullableWithAggregatesFilter<"User"> | string | null
     department?: StringNullableWithAggregatesFilter<"User"> | string | null
+    sessionYear?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type SessionWhereInput = {
@@ -6100,6 +6119,7 @@ export namespace Prisma {
     bloodGroup?: string | null
     contactInfo?: string | null
     department?: string | null
+    sessionYear?: string | null
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
   }
@@ -6115,6 +6135,7 @@ export namespace Prisma {
     bloodGroup?: string | null
     contactInfo?: string | null
     department?: string | null
+    sessionYear?: string | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
   }
@@ -6130,6 +6151,7 @@ export namespace Prisma {
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     contactInfo?: NullableStringFieldUpdateOperationsInput | string | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionYear?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
   }
@@ -6145,6 +6167,7 @@ export namespace Prisma {
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     contactInfo?: NullableStringFieldUpdateOperationsInput | string | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionYear?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -6160,6 +6183,7 @@ export namespace Prisma {
     bloodGroup?: string | null
     contactInfo?: string | null
     department?: string | null
+    sessionYear?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -6173,6 +6197,7 @@ export namespace Prisma {
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     contactInfo?: NullableStringFieldUpdateOperationsInput | string | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionYear?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -6186,6 +6211,7 @@ export namespace Prisma {
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     contactInfo?: NullableStringFieldUpdateOperationsInput | string | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionYear?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SessionCreateInput = {
@@ -6520,6 +6546,7 @@ export namespace Prisma {
     bloodGroup?: SortOrder
     contactInfo?: SortOrder
     department?: SortOrder
+    sessionYear?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -6533,6 +6560,7 @@ export namespace Prisma {
     bloodGroup?: SortOrder
     contactInfo?: SortOrder
     department?: SortOrder
+    sessionYear?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -6546,6 +6574,7 @@ export namespace Prisma {
     bloodGroup?: SortOrder
     contactInfo?: SortOrder
     department?: SortOrder
+    sessionYear?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -7169,6 +7198,7 @@ export namespace Prisma {
     bloodGroup?: string | null
     contactInfo?: string | null
     department?: string | null
+    sessionYear?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
   }
 
@@ -7183,6 +7213,7 @@ export namespace Prisma {
     bloodGroup?: string | null
     contactInfo?: string | null
     department?: string | null
+    sessionYear?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -7213,6 +7244,7 @@ export namespace Prisma {
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     contactInfo?: NullableStringFieldUpdateOperationsInput | string | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionYear?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
   }
 
@@ -7227,6 +7259,7 @@ export namespace Prisma {
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     contactInfo?: NullableStringFieldUpdateOperationsInput | string | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionYear?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -7241,6 +7274,7 @@ export namespace Prisma {
     bloodGroup?: string | null
     contactInfo?: string | null
     department?: string | null
+    sessionYear?: string | null
     sessions?: SessionCreateNestedManyWithoutUserInput
   }
 
@@ -7255,6 +7289,7 @@ export namespace Prisma {
     bloodGroup?: string | null
     contactInfo?: string | null
     department?: string | null
+    sessionYear?: string | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -7285,6 +7320,7 @@ export namespace Prisma {
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     contactInfo?: NullableStringFieldUpdateOperationsInput | string | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionYear?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUpdateManyWithoutUserNestedInput
   }
 
@@ -7299,6 +7335,7 @@ export namespace Prisma {
     bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
     contactInfo?: NullableStringFieldUpdateOperationsInput | string | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionYear?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
 

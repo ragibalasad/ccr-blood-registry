@@ -20,6 +20,7 @@ model User {
   bloodGroup  String?
   contactInfo String?
   department  String?
+  sessionYear String?
 
   sessions Session[]
   accounts Account[]

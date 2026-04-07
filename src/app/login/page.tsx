@@ -19,7 +19,7 @@ export default function LoginPage() {
     try {
       const { error: signInError } = await signIn.social({
         provider: "google",
-        callbackURL: "/profile",
+        callbackURL: "/search",
       });
 
       if (signInError) {
@@ -43,7 +43,7 @@ export default function LoginPage() {
           email,
           password,
           fetchOptions: {
-            onSuccess: () => router.push("/profile"),
+            onSuccess: () => router.push("/search"),
             onError: (ctx) => setError(ctx.error.message || "Authentication failed"),
           }
         });
@@ -54,7 +54,7 @@ export default function LoginPage() {
           password,
           name,
           fetchOptions: {
-            onSuccess: () => router.push("/profile"),
+            onSuccess: () => router.push("/search"),
             onError: (ctx) => setError(ctx.error.message || "Registration failed"),
           }
         });

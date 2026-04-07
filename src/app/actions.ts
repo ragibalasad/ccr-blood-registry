@@ -16,13 +16,21 @@ export async function updateProfile(formData: FormData) {
     const bloodGroup = formData.get("bloodGroup") as string;
     const contactInfo = formData.get("contactInfo") as string;
     const department = formData.get("department") as string;
+    const sessionYear = formData.get("sessionYear") as string;
+    const lastDonatedAtStr = formData.get("lastDonatedAt") as string;
+    const name = formData.get("name") as string;
+    
+    const lastDonatedAt = lastDonatedAtStr ? new Date(lastDonatedAtStr) : null;
     
     await prisma.user.update({
       where: { id: session.user.id },
       data: {
+        name: name || undefined,
         bloodGroup: bloodGroup || null,
         contactInfo: contactInfo || null,
         department: department || null,
+        sessionYear: sessionYear || null,
+        lastDonatedAt,
       }
     });
     

@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import SearchClient from "./SearchClient";
 
-export default async function SearchPage(props: { searchParams: Promise<{ q?: string }> }) {
+export default async function SearchPage(props: { searchParams: Promise<{ q?: string, eligible?: string }> }) {
   const session = await auth.api.getSession({
     headers: await headers()
   });
@@ -15,11 +15,20 @@ export default async function SearchPage(props: { searchParams: Promise<{ q?: st
 
   const searchParams = await props.searchParams;
   const q = searchParams.q;
+  const eligibleOnly = searchParams.eligible !== "false"; // Default to true
+
+  const ninetyDaysAgo = new Date();
+  ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
 
   const users = await prisma.user.findMany({
     where: {
-      bloodGroup: q ? { equals: q } : { not: null },
-      id: { not: session.user.id }
+      bloodGroup: q ? { equals: q } : undefined,
+      ...(eligibleOnly ? {
+        OR: [
+          { lastDonatedAt: { lte: ninetyDaysAgo } },
+          { lastDonatedAt: null }
+        ]
+      } : {})
     },
     select: {
       id: true,
@@ -27,6 +36,8 @@ export default async function SearchPage(props: { searchParams: Promise<{ q?: st
       image: true,
       bloodGroup: true,
       department: true,
+      sessionYear: true,
+      lastDonatedAt: true,
       contactInfo: true,
     },
     orderBy: {
@@ -41,7 +52,7 @@ export default async function SearchPage(props: { searchParams: Promise<{ q?: st
         <p className="text-slate-500 text-sm mt-1">Browse and filter the registry by blood type.</p>
       </div>
       
-      <SearchClient initialUsers={users} initialQuery={q || ""} />
+      <SearchClient initialUsers={users} initialQuery={q || ""} initialEligible={eligibleOnly} />
     </div>
   );
 }

@@ -11,7 +11,7 @@ export default function ProfileForm({ user }: { user: any }) {
     e.preventDefault();
     setMessage("");
     const formData = new FormData(e.currentTarget);
-    
+
     startTransition(async () => {
       const result = await updateProfile(formData);
       if (result.error) {
@@ -34,8 +34,8 @@ export default function ProfileForm({ user }: { user: any }) {
           )}
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-slate-900">{user.name}</h3>
-          <p className="text-slate-500 text-sm">{user.email}</p>
+          <p className="text-slate-500 text-sm font-medium">{user.email}</p>
+          <span className="text-xs text-slate-400 bg-slate-50 px-2 py-0.5 rounded-full border border-slate-200">Primary Identity</span>
         </div>
       </div>
 
@@ -45,11 +45,24 @@ export default function ProfileForm({ user }: { user: any }) {
         </div>
       )}
 
+      <div className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium text-slate-900 mb-2">Full Name</label>
+          <input
+            type="text"
+            name="name"
+            defaultValue={user.name || ""}
+            placeholder="Your full name"
+            className="w-full px-3 py-2 rounded-md bg-white border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 text-sm placeholder-slate-400 focus:border-transparent"
+          />
+        </div>
+      </div>
+
       <div className="grid sm:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-slate-900 mb-2">Blood Group</label>
-          <select 
-            name="bloodGroup" 
+          <select
+            name="bloodGroup"
             defaultValue={user.bloodGroup || ""}
             className="w-full px-3 py-2 rounded-md bg-white border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 text-sm focus:border-transparent"
           >
@@ -62,20 +75,48 @@ export default function ProfileForm({ user }: { user: any }) {
 
         <div>
           <label className="block text-sm font-medium text-slate-900 mb-2">Department</label>
-          <input 
-            type="text" 
+          <select
             name="department"
             defaultValue={user.department || ""}
-            placeholder="e.g. Computer Science"
-            className="w-full px-3 py-2 rounded-md bg-white border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 text-sm placeholder-slate-400 focus:border-transparent"
-          />
+            className="w-full px-3 py-2 rounded-md bg-white border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 text-sm focus:border-transparent"
+          >
+            <option value="" disabled>Select Department</option>
+            {["Bangla", "English", "History", "Philosophy", "Political Science", "Economics", "Accounting", "Management", "Physics", "Chemistry", "Botany", "Zoology", "Mathematics"].map(dept => (
+              <option key={dept} value={dept}>{dept}</option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-slate-900 mb-2">Session Year</label>
+          <select
+            name="sessionYear"
+            defaultValue={user.sessionYear || ""}
+            className="w-full px-3 py-2 rounded-md bg-white border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 text-sm focus:border-transparent"
+          >
+            <option value="" disabled>Select Session</option>
+            {["2017-2018", "2018-2019", "2019-2020", "2020-2021", "2021-2022", "2022-2023", "2023-2024", "2024-2025"].map(session => (
+              <option key={session} value={session}>{session}</option>
+            ))}
+          </select>
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-900 mb-2">Contact Info</label>
+        <label className="block text-sm font-medium text-slate-900 mb-2">Last Donated Date</label>
         <input 
-          type="text" 
+          type="date" 
+          name="lastDonatedAt"
+          defaultValue={user.lastDonatedAt ? new Date(user.lastDonatedAt).toISOString().split('T')[0] : ""}
+          className="w-full px-3 py-2 rounded-md bg-white border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 text-sm placeholder-slate-400 focus:border-transparent"
+        />
+        <p className="mt-1.5 text-xs text-slate-500">This helps determine your eligibility for future donations.</p>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-slate-900 mb-2">Contact Info</label>
+        <input
+          type="text"
           name="contactInfo"
           defaultValue={user.contactInfo || ""}
           placeholder="Phone number, Facebook, etc."
@@ -83,10 +124,10 @@ export default function ProfileForm({ user }: { user: any }) {
         />
         <p className="mt-1.5 text-xs text-slate-500">Provide an accessible way for peers to reach you.</p>
       </div>
-      
+
       <div className="pt-4 flex">
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           disabled={isPending}
           className="px-4 py-2 bg-slate-900 text-white rounded-md font-medium hover:bg-slate-800 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 text-sm shadow-sm"
         >

@@ -130,7 +130,8 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt',
   bloodGroup: 'bloodGroup',
   contactInfo: 'contactInfo',
-  department: 'department'
+  department: 'department',
+  sessionYear: 'sessionYear'
 };
 
 exports.Prisma.SessionScalarFieldEnum = {

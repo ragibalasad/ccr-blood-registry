@@ -1,7 +1,7 @@
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["schemaEngineDriverAdapters"]
-  output          = "./client"
+  output          = "../src/generated/client"
 }
 
 datasource db {
@@ -20,6 +20,8 @@ model User {
   bloodGroup    String?
   contactInfo   String?
   department    String?
+  sessionYear   String?
+  lastDonatedAt DateTime?
 
   sessions      Session[]
   accounts      Account[]
