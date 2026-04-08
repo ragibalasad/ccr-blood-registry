@@ -73,10 +73,10 @@ export default function LoginPage() {
 
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
-            {isLogin ? "Portal Login" : "Join Registry"}
+            {isLogin ? "Login" : "Join Registry"}
           </h2>
           <p className="text-slate-500 text-sm mt-1">
-            Access the decentralized college donor network
+            Access the growing network of donors
           </p>
         </div>
 
@@ -154,7 +154,7 @@ export default function LoginPage() {
               className="w-full py-2.5 bg-slate-900 text-white rounded-md font-bold hover:bg-slate-800 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 text-sm mt-2 shadow-sm"
             >
               {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-              {isLogin ? "Authenticate" : "Create Record"}
+              {isLogin ? "Authenticate" : "Join Registry"}
             </button>
           </form>
 

@@ -22,8 +22,8 @@ export default function Home() {
       </h1>
 
       <p className="text-lg text-slate-600 mb-10 leading-relaxed max-w-2xl">
-        An open, collaborative directory of emergency blood donors managed directly by the students of CCR.
-        Add your details to the directory to assist peers during medical emergencies.
+        An open, collaborative database of emergency blood donors managed directly by the students of CCR.
+        Add your details to the registry to assist peers during medical emergencies.
       </p>
 
       <div className="flex flex-col sm:flex-row gap-4 mb-20">
@@ -31,7 +31,7 @@ export default function Home() {
           <>
             <Link href="/search" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-md text-sm font-medium hover:bg-slate-800 transition-colors shadow-sm">
               <Search className="w-4 h-4" />
-              Search Directory
+              Find Donors
             </Link>
             <Link href="/profile" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-slate-900 border border-slate-200 rounded-md text-sm font-medium hover:bg-slate-50 transition-colors">
               Manage Profile
@@ -47,9 +47,9 @@ export default function Home() {
 
       <div className="grid sm:grid-cols-2 gap-8 border-t border-slate-200 pt-12">
         <div>
-          <h3 className="text-lg font-semibold text-slate-900 mb-2">Search Network</h3>
+          <h3 className="text-lg font-semibold text-slate-900 mb-2">Find Donors</h3>
           <p className="text-slate-600 text-sm leading-relaxed">
-            Query the collaborative database to find registered students by specific blood groups. Get immediate access to their provided contact endpoints.
+            Query the collaborative database to find registered students by specific blood groups. Get immediate access to their provided contact information.
           </p>
         </div>
 

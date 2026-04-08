@@ -69,7 +69,7 @@ export default function SearchClient({
         {/* Eligibility Toggle */}
         <div className="mb-4 p-3 bg-slate-50 rounded-lg border border-slate-200">
           <label className="flex items-center justify-between cursor-pointer group">
-            <span className="text-xs font-bold text-slate-700 uppercase tracking-tight">Eligible Only</span>
+            <span className="text-xs font-bold text-slate-700 uppercase">Eligible Only</span>
             <div className="relative inline-flex items-center" onClick={toggleEligible}>
               <div className={`w-10 h-5 rounded-full transition-colors ${isEligibleLocal ? 'bg-red-500' : 'bg-slate-300'}`}></div>
               <div className={`absolute left-0.5 top-0.5 bg-white w-4 h-4 rounded-full shadow-sm transition-transform ${isEligibleLocal ? 'translate-x-5' : 'translate-x-0'}`}></div>
@@ -185,7 +185,7 @@ export default function SearchClient({
           </div>
         ) : (
           <div className="bg-white border border-slate-200 rounded-lg p-12 text-center flex flex-col items-center">
-            <h3 className="text-sm font-bold text-slate-900 mb-1">No donors found</h3>
+            <h3 className="text-sm font-bold text-slate-900 mb-1">No donors available</h3>
             <p className="text-slate-500 text-sm">Adjust your filters to see more results.</p>
           </div>
         )}

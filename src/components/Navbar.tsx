@@ -82,7 +82,7 @@ export default function Navbar() {
             <div className="flex items-center gap-1">
               <Link href="/search" className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slate-600 hover:text-slate-950 hover:bg-slate-50 rounded">
                 <Search className="w-4 h-4" />
-                <span className="hidden sm:inline">Search Directory</span>
+                <span className="hidden sm:inline">Find Donors</span>
               </Link>
               <Link href="/profile" className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slate-600 hover:text-slate-950 hover:bg-slate-50 rounded">
                 <User className="w-4 h-4" />
@@ -96,8 +96,9 @@ export default function Navbar() {
               </button>
             </div>
           ) : !isPending ? (
-            <Link href="/login" className="px-4 py-2 text-sm font-bold text-white bg-slate-900 rounded hover:bg-slate-800 shadow-sm">
-              Access Portal
+            <Link href="/login" className="flex items-center gap-1.5 px-4 py-2 text-sm font-bold text-white bg-slate-900 rounded hover:bg-slate-800 shadow-sm">
+              <Search className="w-4 h-4" />
+              Find Donors
             </Link>
           ) : null}
         </div>
