@@ -62,10 +62,10 @@ export default function SearchClient({
 
 
   return (
-    <div className="flex flex-col md:flex-row gap-8 items-start">
+    <div className="flex flex-col md:flex-row gap-8 items-start w-full min-w-0">
 
       {/* ── Mobile Filter Bar ── */}
-      <div className="md:hidden w-full sticky top-16 z-30 bg-slate-50 pt-1 pb-3 border-b border-slate-200 space-y-2 px-4">
+      <div className="md:hidden w-screen -mx-4 px-4 sticky top-16 z-30 bg-slate-50 pt-1 pb-3 border-b border-slate-200 space-y-2">
 
         {/* Row 1: Eligibility toggle — always visible */}
         <div className="flex items-center justify-between px-1 py-2">
@@ -147,7 +147,7 @@ export default function SearchClient({
       </div>
 
       {/* ── Main Grid Area ── */}
-      <div className="flex-1 w-full space-y-4 px-4">
+      <div className="flex-1 min-w-0 space-y-4">
         <div className="flex items-center justify-between mb-2">
           <h2 className="font-medium text-slate-900 text-sm">
             Results {query ? `for ${query}` : ""}
