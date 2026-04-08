@@ -186,7 +186,7 @@ export default function SearchClient({
         ) : (
           <div className="bg-white border border-slate-200 rounded-lg p-12 text-center flex flex-col items-center">
             <h3 className="text-sm font-bold text-slate-900 mb-1">No donors found</h3>
-            <p className="text-slate-500 text-sm">Adjustment your filters to see more results.</p>
+            <p className="text-slate-500 text-sm">Adjust your filters to see more results.</p>
           </div>
         )}
       </div>
