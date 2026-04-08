@@ -177,7 +177,7 @@ export default function SearchClient({
                       <h3 className="text-base font-bold text-slate-900 truncate tracking-tight">{user.name}</h3>
                       {(user.department || user.sessionYear) ? (
                         <div className="flex items-center gap-1.5 text-[13px] text-slate-500 mt-1">
-                          <MapPin className="w-3.5 h-3.5 shrink-0" />
+                          {/* <MapPin className="w-3.5 h-3.5 shrink-0" /> */}
                           <span className="truncate">
                             {user.department || "No Dept"} {user.sessionYear ? `• ${user.sessionYear}` : ""}
                           </span>
