@@ -24,7 +24,15 @@ export default function SearchClient({
   initialEligible: boolean
 }) {
   const [query, setQuery] = useState(initialQuery);
+  const [isEligibleLocal, setIsEligibleLocal] = useState(initialEligible);
+  const [lastInitialEligible, setLastInitialEligible] = useState(initialEligible);
   const router = useRouter();
+
+  // Sync with server state when URL changes (e.g. browser back button or direct navigation)
+  if (initialEligible !== lastInitialEligible) {
+    setIsEligibleLocal(initialEligible);
+    setLastInitialEligible(initialEligible);
+  }
 
   const updateFilters = (bg: string, eligible: boolean) => {
     const params = new URLSearchParams();
@@ -32,16 +40,18 @@ export default function SearchClient({
     if (!eligible) params.set('eligible', 'false');
 
     const search = params.toString();
-    router.push(`/search${search ? `?${search}` : ''}`);
+    router.push(`/search${search ? `?${search}` : ''}`, { scroll: false });
   };
 
   const handleSearch = (bg: string) => {
     setQuery(bg);
-    updateFilters(bg, initialEligible);
+    updateFilters(bg, isEligibleLocal);
   };
 
   const toggleEligible = () => {
-    updateFilters(query, !initialEligible);
+    const nextState = !isEligibleLocal;
+    setIsEligibleLocal(nextState); // Immediate UI update
+    updateFilters(query, nextState);
   };
 
   const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
@@ -61,8 +71,8 @@ export default function SearchClient({
           <label className="flex items-center justify-between cursor-pointer group">
             <span className="text-xs font-bold text-slate-700 uppercase tracking-tight">Eligible Only</span>
             <div className="relative inline-flex items-center" onClick={toggleEligible}>
-              <div className={`w-10 h-5 rounded-full transition-colors ${initialEligible ? 'bg-red-500' : 'bg-slate-300'}`}></div>
-              <div className={`absolute left-0.5 top-0.5 bg-white w-4 h-4 rounded-full shadow-sm transition-transform ${initialEligible ? 'translate-x-5' : 'translate-x-0'}`}></div>
+              <div className={`w-10 h-5 rounded-full transition-colors ${isEligibleLocal ? 'bg-red-500' : 'bg-slate-300'}`}></div>
+              <div className={`absolute left-0.5 top-0.5 bg-white w-4 h-4 rounded-full shadow-sm transition-transform ${isEligibleLocal ? 'translate-x-5' : 'translate-x-0'}`}></div>
             </div>
           </label>
           <p className="text-[10px] text-slate-500 mt-2 leading-relaxed">Show donors who haven't donated in the last 90 days.</p>
