@@ -46,7 +46,7 @@ export default async function SearchPage(props: { searchParams: Promise<{ q?: st
   });
 
   return (
-    <div className="flex flex-col flex-1 px-4 lg:px-0 py-8 w-full">
+    <div className="flex flex-col flex-1 lg:px-0 py-8 w-full">
       <div className="mb-8 border-b border-slate-200 pb-8">
         <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Blood donors registry</h1>
         <p className="text-slate-500 text-sm mt-1">Browse and filter the registry by blood type.</p>

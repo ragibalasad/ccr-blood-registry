@@ -26,6 +26,7 @@ export default function SearchClient({
   const [query, setQuery] = useState(initialQuery);
   const [isEligibleLocal, setIsEligibleLocal] = useState(initialEligible);
   const [lastInitialEligible, setLastInitialEligible] = useState(initialEligible);
+
   const router = useRouter();
 
   // Sync with server state when URL changes (e.g. browser back button or direct navigation)
@@ -50,7 +51,7 @@ export default function SearchClient({
 
   const toggleEligible = () => {
     const nextState = !isEligibleLocal;
-    setIsEligibleLocal(nextState); // Immediate UI update
+    setIsEligibleLocal(nextState);
     updateFilters(query, nextState);
   };
 
@@ -59,12 +60,53 @@ export default function SearchClient({
   const ninetyDaysAgo = new Date();
   ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
 
+
   return (
     <div className="flex flex-col md:flex-row gap-8 items-start">
 
-      {/* Sidebar Filter */}
-      <div className="w-full md:w-56 shrink-0 flex flex-col gap-2 sticky top-24 bg-slate-50 max-sm:pb-2 max-sm:border-b max-sm:border-slate-200">
-        <h2 className="font-semibold text-slate-900 text-sm mb-2 font-display">Filters</h2>
+      {/* ── Mobile Filter Bar ── */}
+      <div className="md:hidden w-full sticky top-16 z-30 bg-slate-50 pt-1 pb-3 border-b border-slate-200 space-y-2">
+
+        {/* Row 1: Eligibility toggle — always visible */}
+        <div className="flex items-center justify-between px-1 py-2">
+          <span className="text-xs font-bold text-slate-600 uppercase tracking-wide">Eligible donors only</span>
+          <div className="relative inline-flex items-center cursor-pointer" onClick={toggleEligible}>
+            <div className={`w-10 h-5 rounded-full transition-colors ${isEligibleLocal ? 'bg-red-500' : 'bg-slate-300'}`}></div>
+            <div className={`absolute left-0.5 top-0.5 bg-white w-4 h-4 rounded-full shadow-sm transition-transform ${isEligibleLocal ? 'translate-x-5' : 'translate-x-0'}`}></div>
+          </div>
+        </div>
+
+        {/* Row 2: Scrollable blood group chips */}
+        <div className="overflow-x-auto no-scrollbar w-full">
+          <div className="flex items-center gap-2 w-max pb-0.5">
+            <button
+              onClick={() => handleSearch("")}
+              className={`px-3 py-1.5 text-xs font-bold rounded-full border transition-all ${query === ""
+                ? "bg-slate-900 text-white border-slate-900"
+                : "bg-white text-slate-600 border-slate-200"
+                }`}
+            >
+              All
+            </button>
+            {bloodGroups.map(bg => (
+              <button
+                key={bg}
+                onClick={() => handleSearch(bg)}
+                className={`px-3 py-1.5 text-xs font-bold rounded-full border transition-all ${query === bg
+                  ? "bg-red-600 text-white border-red-600 shadow-sm"
+                  : "bg-white text-slate-700 border-slate-200 hover:border-red-200 hover:text-red-600"
+                  }`}
+              >
+                {bg}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Desktop Sidebar ── */}
+      <div className="hidden md:flex w-56 shrink-0 flex-col gap-2 sticky top-24 bg-slate-50">
+        <h2 className="font-semibold text-slate-900 text-sm mb-2">Filters</h2>
 
         {/* Eligibility Toggle */}
         <div className="mb-4 p-3 bg-slate-50 rounded-lg border border-slate-200">
@@ -88,7 +130,7 @@ export default function SearchClient({
           All Donors
         </button>
 
-        <div className="grid grid-cols-2 max-sm:grid-cols-4 gap-2 mt-2">
+        <div className="grid grid-cols-2 gap-2 mt-2">
           {bloodGroups.map(bg => (
             <button
               key={bg}
@@ -104,7 +146,7 @@ export default function SearchClient({
         </div>
       </div>
 
-      {/* Main Grid Area */}
+      {/* ── Main Grid Area ── */}
       <div className="flex-1 w-full space-y-4">
         <div className="flex items-center justify-between mb-2">
           <h2 className="font-medium text-slate-900 text-sm">
@@ -146,7 +188,7 @@ export default function SearchClient({
                     </div>
 
                     {/* Eligibility Badge */}
-                    <div className={`shrink-0 px-2 py-0.5 rounded-full border text-[10px] font-bold uppercase tracking-wider ${isEligible
+                    <div className={`shrink-0 px-2 py-0.5 rounded-full border text-[10px] font-bold uppercase tracking-wider max-sm:tracking-tight ${isEligible
                       ? "bg-green-50 text-green-700 border-green-200"
                       : "bg-orange-50 text-orange-700 border-orange-200"
                       }`}>
