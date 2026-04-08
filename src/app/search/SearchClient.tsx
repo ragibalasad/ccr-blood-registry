@@ -163,7 +163,7 @@ export default function SearchClient({
               const isEligible = !user.lastDonatedAt || new Date(user.lastDonatedAt) <= ninetyDaysAgo;
 
               return (
-                <div key={user.id} className="bg-white border border-slate-200 rounded-lg p-5 hover:border-slate-300 transition-all flex flex-col hover:shadow-md group">
+                <div key={user.id} className="min-w-0 bg-white border border-slate-200 rounded-lg p-5 hover:border-slate-300 transition-all flex flex-col hover:shadow-md group">
 
                   <div className="flex items-start gap-4 mb-4">
                     <div className="w-12 h-12 shrink-0 bg-slate-100 text-slate-700 rounded-full flex items-center justify-center font-bold text-lg uppercase overflow-hidden border border-slate-200 group-hover:scale-105 transition-transform">
