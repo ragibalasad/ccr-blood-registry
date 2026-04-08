@@ -3,6 +3,14 @@ import { useState, useTransition } from "react";
 import { updateProfile } from "@/app/actions";
 import { Loader2 } from "lucide-react";
 
+const DEPARTMENTS = {
+  "Arts": ["Bangla", "English", "History", "Philosophy", "Political Science"],
+  "Social Science": ["Economics", "Sociology"],
+  "Islamic Studies": ["Islamic History & Culture", "Islamic Studies"],
+  "Business": ["Accounting", "Management", "Marketing", "Finance"],
+  "Science": ["Physics", "Chemistry", "Botany", "Zoology", "Mathematics"],
+};
+
 export default function ProfileForm({ user }: { user: any }) {
   const [isPending, startTransition] = useTransition();
   const [message, setMessage] = useState("");
@@ -81,8 +89,12 @@ export default function ProfileForm({ user }: { user: any }) {
             className="w-full px-3 py-2 rounded-md bg-white border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 text-sm focus:border-transparent"
           >
             <option value="" disabled>Select Department</option>
-            {["Bangla", "English", "History", "Philosophy", "Political Science", "Economics", "Accounting", "Management", "Physics", "Chemistry", "Botany", "Zoology", "Mathematics"].map(dept => (
-              <option key={dept} value={dept}>{dept}</option>
+            {Object.entries(DEPARTMENTS).map(([group, depts]) => (
+              <optgroup key={group} label={group}>
+                {depts.map(dept => (
+                  <option key={dept} value={dept}>{dept}</option>
+                ))}
+              </optgroup>
             ))}
           </select>
         </div>
@@ -104,8 +116,8 @@ export default function ProfileForm({ user }: { user: any }) {
 
       <div>
         <label className="block text-sm font-medium text-slate-900 mb-2">Last Donated Date</label>
-        <input 
-          type="date" 
+        <input
+          type="date"
           name="lastDonatedAt"
           defaultValue={user.lastDonatedAt ? new Date(user.lastDonatedAt).toISOString().split('T')[0] : ""}
           className="w-full px-3 py-2 rounded-md bg-white border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 text-sm placeholder-slate-400 focus:border-transparent"
