@@ -19,7 +19,7 @@ export default function LoginPage() {
     try {
       const { error: signInError } = await signIn.social({
         provider: "google",
-        callbackURL: "/search",
+        callbackURL: "/welcome",
       });
 
       if (signInError) {
@@ -43,7 +43,7 @@ export default function LoginPage() {
           email,
           password,
           fetchOptions: {
-            onSuccess: () => router.push("/search"),
+            onSuccess: () => router.push("/welcome"),
             onError: (ctx) => setError(ctx.error.message || "Authentication failed"),
           }
         });
@@ -54,7 +54,7 @@ export default function LoginPage() {
           password,
           name,
           fetchOptions: {
-            onSuccess: () => router.push("/search"),
+            onSuccess: () => router.push("/welcome"),
             onError: (ctx) => setError(ctx.error.message || "Registration failed"),
           }
         });
@@ -70,7 +70,7 @@ export default function LoginPage() {
   return (
     <div className="flex flex-1 items-center justify-center p-4 w-full pt-10 pb-20">
       <div className="w-full max-w-[400px]">
-        
+
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
             {isLogin ? "Portal Login" : "Join Registry"}
@@ -124,7 +124,7 @@ export default function LoginPage() {
                 />
               </div>
             )}
-            
+
             <div>
               <label className="block text-sm font-bold text-slate-900 mb-1.5">Email</label>
               <input
@@ -136,7 +136,7 @@ export default function LoginPage() {
                 placeholder="college@edu"
               />
             </div>
-            
+
             <div>
               <label className="block text-sm font-bold text-slate-900 mb-1.5">Password</label>
               <input
