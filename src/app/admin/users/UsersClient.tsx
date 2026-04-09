@@ -2,10 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { searchUsers, updateUserRole, updateUserVerification } from "../actions";
-import { Search, Check, X, ShieldAlert, GraduationCap, Loader2, UserCircle } from "lucide-react";
+import { Search, Check, X, ShieldAlert, GraduationCap, Loader2, UserCircle, Lock } from "lucide-react";
+import { useSession } from "@/lib/auth-client";
 import ConfirmModal from "../components/ConfirmModal";
 
 export default function UsersClient({ initialFilter }: { initialFilter: string }) {
+  const { data: session } = useSession();
+  const isAdmin = (session?.user as any)?.role === "admin";
+  
   const [searchQuery, setSearchQuery] = useState("");
   const [users, setUsers] = useState<any[]>([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -174,11 +178,16 @@ export default function UsersClient({ initialFilter }: { initialFilter: string }
                 <div className="w-px h-6 bg-slate-200 mx-0.5" />
                 
                 <div className="flex-1 lg:flex-none relative h-full">
-                  <ShieldAlert className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-400 pointer-events-none" />
+                  {isAdmin ? (
+                    <ShieldAlert className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-400 pointer-events-none" />
+                  ) : (
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-400 pointer-events-none" />
+                  )}
                   <select
                     value={user.role}
+                    disabled={!isAdmin}
                     onChange={(e) => handleUpdateRole(user.id, e.target.value)}
-                    className="w-full h-full pl-8 sm:pl-9 pr-6 sm:pr-8 py-2 bg-white text-slate-700 border border-slate-200 rounded-lg hover:bg-slate-50 hover:border-red-100 transition-all font-bold text-xs sm:text-sm shadow-sm outline-none focus:ring-2 focus:ring-red-100 appearance-none cursor-pointer"
+                    className={`w-full h-full pl-8 sm:pl-9 pr-6 sm:pr-8 py-2 bg-white text-slate-700 border border-slate-200 rounded-lg transition-all font-bold text-xs sm:text-sm shadow-sm outline-none appearance-none ${isAdmin ? 'hover:bg-slate-50 hover:border-red-100 focus:ring-2 focus:ring-red-100 cursor-pointer' : 'opacity-60 cursor-not-allowed'}`}
                   >
                     <option value="user">User</option>
                     <option value="moderator">Moderator</option>

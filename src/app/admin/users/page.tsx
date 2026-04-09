@@ -8,7 +8,7 @@ export default async function AdminUsersPage(props: { searchParams: Promise<{ fi
     headers: await headers(),
   });
 
-  if (session?.user.role !== "admin") {
+  if (session?.user.role !== "admin" && session?.user.role !== "moderator") {
     redirect("/");
   }
 

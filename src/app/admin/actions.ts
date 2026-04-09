@@ -70,7 +70,7 @@ export async function searchUsers(query: string, filter: string = "all") {
     headers: await headers(),
   });
 
-  if (session?.user.role !== "admin") {
+  if (session?.user.role !== "admin" && session?.user.role !== "moderator") {
     return { error: "Unauthorized" };
   }
 
@@ -109,7 +109,7 @@ export async function updateUserRole(userId: string, role: string) {
   });
 
   if (session?.user.role !== "admin") {
-    return { error: "Unauthorized" };
+    return { error: "Unauthorized. Only administrators can change user roles." };
   }
 
   await prisma.user.update({
@@ -126,7 +126,7 @@ export async function updateUserVerification(userId: string, verified: boolean) 
     headers: await headers(),
   });
 
-  if (session?.user.role !== "admin") {
+  if (session?.user.role !== "admin" && session?.user.role !== "moderator") {
     return { error: "Unauthorized" };
   }
 
@@ -144,7 +144,7 @@ export async function getDashboardStats() {
     headers: await headers(),
   });
 
-  if (session?.user.role !== "admin") {
+  if (session?.user.role !== "admin" && session?.user.role !== "moderator") {
     return { error: "Unauthorized" };
   }
 

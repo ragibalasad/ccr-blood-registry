@@ -3,9 +3,12 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { LayoutDashboard, Users, Settings, Shield, ChevronRight } from "lucide-react";
+import { useSession } from "@/lib/auth-client";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const { data: session } = useSession();
+  const userRole = (session?.user as any)?.role || "user";
 
   const navItems = [
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
@@ -20,7 +23,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         { name: "Moderators", href: "/admin/users?filter=moderator" },
       ]
     },
-    { name: "Settings", href: "/admin/settings", icon: Settings },
+    ...(userRole === "admin" ? [
+      { name: "Settings", href: "/admin/settings", icon: Settings }
+    ] : []),
   ];
 
   return (
