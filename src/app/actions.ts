@@ -12,6 +12,17 @@ export async function updateProfile(formData: FormData) {
     if (!session?.user) {
       return { error: "Unauthorized" };
     }
+
+    // Check if data entry is enabled
+    // Note: Admins can bypass this restriction
+    if (session.user.role !== "admin") {
+      const settings = await prisma.systemSetting.findUnique({
+        where: { id: "config" },
+      });
+      if (settings && !settings.dataEntryEnabled) {
+        return { error: "Data entry is currently disabled by the administrator." };
+      }
+    }
     
     const bloodGroup = formData.get("bloodGroup") as string;
     const contactInfo = formData.get("contactInfo") as string;

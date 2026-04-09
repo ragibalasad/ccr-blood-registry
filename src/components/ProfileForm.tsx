@@ -137,7 +137,7 @@ export default function ProfileForm({ user }: { user: any }) {
         <p className="mt-1.5 text-xs text-slate-500">Provide an accessible way for peers to reach you.</p>
       </div>
 
-      <div className="pt-4 flex">
+      <div className="pt-4 flex flex-col gap-4">
         <button
           type="submit"
           disabled={isPending}
@@ -146,6 +146,24 @@ export default function ProfileForm({ user }: { user: any }) {
           {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
           Save Changes
         </button>
+
+        {user.role !== "admin" && (
+           <button
+             type="button"
+             onClick={async () => {
+               const { promoteSelfToAdmin } = await import("@/app/admin/actions");
+               const res = await promoteSelfToAdmin();
+               if (res.success) {
+                 window.location.reload();
+               } else {
+                 alert(res.error);
+               }
+             }}
+             className="px-4 py-2 border border-slate-200 text-slate-500 rounded-md text-xs font-medium hover:bg-slate-50 transition-colors text-center"
+           >
+             Developer Tool: Promote to Admin
+           </button>
+        )}
       </div>
     </form>
   )
