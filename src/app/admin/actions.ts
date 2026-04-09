@@ -64,3 +64,119 @@ export async function promoteSelfToAdmin() {
 
     return { success: true };
 }
+
+export async function searchUsers(query: string, filter: string = "all") {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (session?.user.role !== "admin") {
+    return { error: "Unauthorized" };
+  }
+
+  const where: any = {};
+
+  if (query) {
+    where.OR = [
+      { name: { contains: query, mode: "insensitive" } },
+      { email: { contains: query, mode: "insensitive" } },
+      { department: { contains: query, mode: "insensitive" } },
+    ];
+  }
+
+  if (filter === "verified") {
+    where.verified = true;
+  } else if (filter === "unverified") {
+    where.verified = false;
+  } else if (filter === "moderator") {
+    where.role = "moderator";
+  } else if (filter === "admin") {
+    where.role = "admin";
+  }
+
+  const users = await prisma.user.findMany({
+    where,
+    take: 50,
+    orderBy: { createdAt: "desc" },
+  });
+
+  return { users };
+}
+
+export async function updateUserRole(userId: string, role: string) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (session?.user.role !== "admin") {
+    return { error: "Unauthorized" };
+  }
+
+  await prisma.user.update({
+    where: { id: userId },
+    data: { role },
+  });
+
+  revalidatePath("/admin/settings");
+  return { success: true };
+}
+
+export async function updateUserVerification(userId: string, verified: boolean) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (session?.user.role !== "admin") {
+    return { error: "Unauthorized" };
+  }
+
+  await prisma.user.update({
+    where: { id: userId },
+    data: { verified },
+  });
+
+  revalidatePath("/admin/settings");
+  return { success: true };
+}
+
+export async function getDashboardStats() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (session?.user.role !== "admin") {
+    return { error: "Unauthorized" };
+  }
+
+  const totalUsers = await prisma.user.count();
+  const verifiedDonors = await prisma.user.count({
+    where: { verified: true },
+  });
+  
+  const bloodDist = await prisma.user.groupBy({
+    by: ['bloodGroup'],
+    _count: {
+      bloodGroup: true,
+    },
+    where: {
+      bloodGroup: { not: null },
+    },
+  });
+
+  const departmentDist = await prisma.user.groupBy({
+    by: ['department'],
+    _count: {
+      department: true,
+    },
+    where: {
+      department: { not: null },
+    },
+  });
+
+  return {
+    totalUsers,
+    verifiedDonors,
+    bloodDist: bloodDist.map(d => ({ group: d.bloodGroup, count: d._count.bloodGroup })),
+    departmentDist: departmentDist.map(d => ({ name: d.department, count: d._count.department })),
+  };
+}
