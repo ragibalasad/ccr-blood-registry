@@ -17,6 +17,11 @@ export const auth = betterAuth({
   },
   user: {
     additionalFields: {
+      role: {
+        type: "string",
+        defaultValue: "user",
+        input: false,
+      },
       bloodGroup: {
         type: "string",
       },
@@ -27,5 +32,19 @@ export const auth = betterAuth({
   },
   emailAndPassword: {
     enabled: true,
+  },
+  databaseHooks: {
+    user: {
+      create: {
+        before: async (user) => {
+          const settings = await prisma.systemSetting.findUnique({
+            where: { id: "config" },
+          });
+          if (settings && !settings.registrationEnabled) {
+            throw new Error("Registration is currently disabled by the administrator.");
+          }
+        },
+      },
+    },
   },
 });

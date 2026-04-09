@@ -1,17 +1,33 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signIn, signUp } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import { Loader2 } from "lucide-react";
+import { Loader2, AlertTriangle } from "lucide-react";
+import { getSystemSettings } from "../admin/actions";
 
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);
+  const [settings, setSettings] = useState({ registrationEnabled: true, dataEntryEnabled: true });
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    async function fetchSettings() {
+      const data = await getSystemSettings();
+      if (!("error" in data)) {
+        setSettings(data);
+        // Force login tab if registration is disabled
+        if (!data.registrationEnabled) {
+          setIsLogin(true);
+        }
+      }
+    }
+    fetchSettings();
+  }, []);
 
   const handleGoogleSignIn = async () => {
     setLoading(true);
@@ -86,6 +102,16 @@ export default function LoginPage() {
           </div>
         )}
 
+        {!settings.registrationEnabled && (
+          <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3 text-amber-800 animate-in fade-in slide-in-from-top-2">
+            <AlertTriangle className="w-5 h-5 mt-0.5 flex-shrink-0" />
+            <div className="text-sm">
+                <p className="font-bold">New Registrations Paused</p>
+                <p>Signups are temporarily disabled. Existing users can still log in below.</p>
+            </div>
+          </div>
+        )}
+
         <div className="space-y-4">
           <button
             onClick={handleGoogleSignIn}
@@ -100,6 +126,11 @@ export default function LoginPage() {
             </svg>
             Continue with Google
           </button>
+          {!settings.registrationEnabled && (
+            <p className="text-[10px] text-center text-slate-400 -mt-2">
+              Note: New accounts cannot be created via Google currently.
+            </p>
+          )}
 
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
@@ -110,61 +141,67 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {!isLogin && (
+          {(isLogin || settings.registrationEnabled) && (
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {!isLogin && (
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 mb-1.5">Full Name</label>
+                  <input
+                    type="text"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full px-3 py-2 rounded-md bg-white border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 text-sm"
+                    placeholder="Student Name"
+                  />
+                </div>
+              )}
+
               <div>
-                <label className="block text-sm font-bold text-slate-900 mb-1.5">Full Name</label>
+                <label className="block text-sm font-bold text-slate-900 mb-1.5">Email</label>
                 <input
-                  type="text"
+                  type="email"
                   required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-3 py-2 rounded-md bg-white border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 text-sm"
-                  placeholder="Student Name"
+                  placeholder="college@edu"
                 />
               </div>
-            )}
 
-            <div>
-              <label className="block text-sm font-bold text-slate-900 mb-1.5">Email</label>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-3 py-2 rounded-md bg-white border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 text-sm"
-                placeholder="college@edu"
-              />
-            </div>
+              <div>
+                <label className="block text-sm font-bold text-slate-900 mb-1.5">Password</label>
+                <input
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-3 py-2 rounded-md bg-white border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 text-sm"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-bold text-slate-900 mb-1.5">Password</label>
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 rounded-md bg-white border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 text-sm"
-              />
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-2.5 bg-slate-900 text-white rounded-md font-bold hover:bg-slate-800 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 text-sm mt-2 shadow-sm"
-            >
-              {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-              {isLogin ? "Authenticate" : "Join Registry"}
-            </button>
-          </form>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-2.5 bg-slate-900 text-white rounded-md font-bold hover:bg-slate-800 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 text-sm mt-2 shadow-sm"
+              >
+                {loading && <Loader2 className="w-4 h-4 animate-spin" />}
+                {isLogin ? "Authenticate" : "Join Registry"}
+              </button>
+            </form>
+          )}
 
           <div className="mt-8 text-center">
-            <button
-              onClick={() => { setIsLogin(!isLogin); setError(""); }}
-              className="text-sm text-slate-500 hover:text-slate-900 underline underline-offset-4 decoration-slate-300 font-medium"
-            >
-              {isLogin ? "New to the database? Register" : "Have an account? Log in"}
-            </button>
+            {settings.registrationEnabled ? (
+              <button
+                onClick={() => { setIsLogin(!isLogin); setError(""); }}
+                className="text-sm text-slate-500 hover:text-slate-900 underline underline-offset-4 decoration-slate-300 font-medium"
+              >
+                {isLogin ? "New to the database? Register" : "Have an account? Log in"}
+              </button>
+            ) : (
+                <p className="text-xs text-slate-400 font-medium">Administrator has paused new registrations.</p>
+            )}
           </div>
         </div>
       </div>

@@ -1,13 +1,40 @@
 "use client";
 import Link from "next/link";
-import { ArrowRight, Search, User, Clock, Users, Bell } from "lucide-react";
+import { ArrowRight, Search, User, Clock, Users, Bell, AlertTriangle } from "lucide-react";
 import { useSession } from "@/lib/auth-client";
+import { useEffect, useState } from "react";
+import { getSystemSettings } from "./admin/actions";
 
 export default function Home() {
   const { data: session } = useSession();
+  const [settings, setSettings] = useState({ registrationEnabled: true, dataEntryEnabled: true });
+
+  useEffect(() => {
+    async function fetchSettings() {
+      const data = await getSystemSettings();
+      if (!("error" in data)) {
+        setSettings(data);
+      }
+    }
+    fetchSettings();
+  }, []);
 
   return (
     <div className="flex flex-col flex-1 lg:px-0 py-6 md:py-20 max-w-3xl">
+      {/* Maintenance Banners */}
+      {!settings.registrationEnabled && (
+        <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-xl flex items-center gap-3 text-amber-800">
+          <AlertTriangle className="w-5 h-5 flex-shrink-0" />
+          <p className="text-sm font-medium italic">New registrations are temporarily closed for maintenance.</p>
+        </div>
+      )}
+      {!settings.dataEntryEnabled && (
+        <div className="mb-6 p-4 bg-slate-100 border border-slate-200 rounded-xl flex items-center gap-3 text-slate-600">
+          <AlertTriangle className="w-5 h-5 flex-shrink-0" />
+          <p className="text-sm font-medium italic">Data updates are currently disabled. You can still search for donors.</p>
+        </div>
+      )}
+
       <div className="mb-8 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-sm font-medium w-max">
         <span className="relative flex h-3 w-3">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-600 opacity-75"></span>
@@ -74,10 +101,15 @@ export default function Home() {
               Manage Profile
             </Link>
           </>
-        ) : (
+        ) : settings.registrationEnabled ? (
           <Link href="/login" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-md text-sm font-medium hover:bg-slate-800 transition-colors shadow-sm">
             Join the Registry
             <ArrowRight className="w-4 h-4" />
+          </Link>
+        ) : (
+          <Link href="/search" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-md text-sm font-medium hover:bg-slate-800 transition-colors shadow-sm">
+            <Search className="w-4 h-4" />
+            Search Registry
           </Link>
         )}
       </div>
