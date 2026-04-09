@@ -22,10 +22,10 @@ export default async function ProfilePage() {
   }
 
   return (
-    <div className="flex flex-col flex-1 px-4 lg:px-0 py-8 w-full max-w-3xl">
+    <div className="flex flex-col flex-1 py-8 max-sm:py-0 w-full max-w-3xl">
       <div className="mb-8 border-b border-slate-200 pb-8">
         <h1 className="text-2xl font-bold text-slate-900 tracking-tight">My Record</h1>
-        <p className="text-slate-500 text-sm mt-1">Manage your public information and contact details.</p>
+        <p className="text-slate-500 text-sm mt-1">Manage your information and contact details.</p>
       </div>
 
       <ProfileForm user={user} />

@@ -36,7 +36,7 @@ export default function ProfileForm({ user }: { user: any }) {
       <div className="flex gap-6 items-center">
         <div className="w-20 h-20 shrink-0 bg-slate-100 text-slate-800 rounded-full flex items-center justify-center text-2xl font-semibold uppercase overflow-hidden border border-slate-200">
           {user.image ? (
-            <img src={user.image} alt="Avatar" className="w-full h-full object-cover" />
+            <img src={user.image} alt="Avatar" referrerPolicy="no-referrer" className="w-full h-full object-cover" />
           ) : (
             user.name?.[0] || 'U'
           )}

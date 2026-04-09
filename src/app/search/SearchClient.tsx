@@ -168,7 +168,7 @@ export default function SearchClient({
                   <div className="flex items-start gap-4 mb-4">
                     <div className="w-12 h-12 shrink-0 bg-slate-100 text-slate-700 rounded-full flex items-center justify-center font-bold text-lg uppercase overflow-hidden border border-slate-200 group-hover:scale-105 transition-transform">
                       {user.image ? (
-                        <img src={user.image} alt="Avatar" className="w-full h-full object-cover" />
+                        <img src={user.image} alt="Avatar" referrerPolicy="no-referrer" className="w-full h-full object-cover" />
                       ) : (
                         user.name?.[0] || 'U'
                       )}
