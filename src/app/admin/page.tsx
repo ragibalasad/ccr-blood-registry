@@ -9,7 +9,7 @@ export default async function AdminDashboardPage() {
     headers: await headers(),
   });
 
-  if (session?.user.role !== "admin") {
+  if (session?.user.role !== "admin" && session?.user.role !== "moderator") {
     redirect("/");
   }
 
