@@ -21,6 +21,7 @@ model User {
   sessionYear   String?
   lastDonatedAt DateTime?
   role          String    @default("user")
+  verified      Boolean   @default(false)
   accounts      Account[]
   sessions      Session[]
 }

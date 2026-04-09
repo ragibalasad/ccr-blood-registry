@@ -28,6 +28,19 @@ export const auth = betterAuth({
       contactInfo: {
         type: "string",
       },
+      department: {
+        type: "string",
+      },
+      sessionYear: {
+        type: "string",
+      },
+      lastDonatedAt: {
+        type: "date",
+      },
+      verified: {
+        type: "boolean",
+        defaultValue: false,
+      },
     },
   },
   emailAndPassword: {

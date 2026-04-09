@@ -3,7 +3,10 @@ import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: "CCR Blood Group Database",
@@ -19,7 +22,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.className} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-slate-50 text-slate-900">
         <Navbar />
-        <main className="flex-1 flex flex-col w-full max-w-5xl mx-auto px-4 md:px-6 xl:px-8 py-8">
+        <main className="flex-1 flex flex-col w-full max-w-5xl mx-auto px-4 py-8">
           {children}
         </main>
       </body>
