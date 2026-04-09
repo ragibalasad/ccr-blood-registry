@@ -88,7 +88,7 @@ export default function Navbar() {
                 <User className="w-4 h-4" />
                 <span className="hidden sm:inline">My Record</span>
               </Link>
-              {(session.user as any).role === "admin" || (session.user as any).role === "moderator" && (
+              {((session.user as any).role === "admin" || (session.user as any).role === "moderator") && (
                 <Link href="/admin" className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded">
                   <Shield className="w-4 h-4" />
                   <span className="hidden sm:inline">Admin</span>

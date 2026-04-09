@@ -1,33 +1,43 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { MapPin, Phone, Droplet } from "lucide-react";
-
-type UserType = {
-  id: string;
-  name: string;
-  image: string | null;
-  bloodGroup: string | null;
-  department: string | null;
-  sessionYear: string | null;
-  lastDonatedAt: Date | null;
-  contactInfo: string | null;
-};
+import { MapPin, Phone, Droplet, Copy, Check } from "lucide-react";
+import { useSession } from "@/lib/auth-client";
 
 export default function SearchClient({
   initialUsers,
   initialQuery,
   initialEligible
 }: {
-  initialUsers: UserType[],
+  initialUsers: any[],
   initialQuery: string,
   initialEligible: boolean
 }) {
+  const { data: session } = useSession();
+  const userRole = (session?.user as any)?.role || "user";
+  const isPrivileged = userRole === "admin" || userRole === "moderator";
+
   const [query, setQuery] = useState(initialQuery);
   const [isEligibleLocal, setIsEligibleLocal] = useState(initialEligible);
   const [lastInitialEligible, setLastInitialEligible] = useState(initialEligible);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const router = useRouter();
+
+  const maskPhoneNumber = (num: string) => {
+    if (!num) return "";
+    return num.slice(0, 3) + "*".repeat(num.length - 3);
+  };
+
+  const handleCopy = async (id: string, num: string) => {
+    try {
+      await navigator.clipboard.writeText(num);
+      setCopiedId(id);
+      setTimeout(() => setCopiedId(null), 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
 
   // Sync with server state when URL changes (e.g. browser back button or direct navigation)
   if (initialEligible !== lastInitialEligible) {
@@ -200,12 +210,30 @@ export default function SearchClient({
                     <div className="flex flex-col gap-1">
                       <div className="flex items-center gap-2 text-[13px] text-slate-700">
                         {user.contactInfo ? (
-                          <>
+                          <div className="flex items-center gap-2 group/phone">
                             <Phone className="w-3.5 h-3.5 text-slate-400" />
-                            {user.contactInfo}
-                          </>
+                            <span className="font-mono text-[13px] tracking-tight">
+                              {(isPrivileged || user.role === "admin" || user.role === "moderator") ? user.contactInfo : maskPhoneNumber(user.contactInfo)}
+                            </span>
+                            {(isPrivileged || user.role === "admin" || user.role === "moderator") && (
+                              <button
+                                onClick={() => handleCopy(user.id, user.contactInfo!)}
+                                className="p-1 hover:bg-slate-100 rounded-md transition-all text-slate-400 hover:text-red-500"
+                                title="Copy full number"
+                              >
+                                {copiedId === user.id ? (
+                                  <Check className="w-3 h-3 text-emerald-500" />
+                                ) : (
+                                  <Copy className="w-3 h-3" />
+                                )}
+                              </button>
+                            )}
+                          </div>
                         ) : (
-                          <span className="text-slate-400 italic text-[13px]">No contact info</span>
+                          <div className="flex items-center gap-2">
+                            <Phone className="w-3.5 h-3.5 text-slate-300" />
+                            <span className="text-slate-400 italic text-[13px]">No contact info</span>
+                          </div>
                         )}
                       </div>
                       <div className="flex items-center gap-2 text-[11px] text-slate-400">
