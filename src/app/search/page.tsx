@@ -39,6 +39,7 @@ export default async function SearchPage(props: { searchParams: Promise<{ q?: st
       sessionYear: true,
       lastDonatedAt: true,
       contactInfo: true,
+      role: true,
     },
     orderBy: {
       name: 'asc'
