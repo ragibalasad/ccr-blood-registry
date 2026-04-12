@@ -146,24 +146,6 @@ export default function ProfileForm({ user }: { user: any }) {
           {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
           Save Changes
         </button>
-
-        {user.role !== "admin" && (
-           <button
-             type="button"
-             onClick={async () => {
-               const { promoteSelfToAdmin } = await import("@/app/admin/actions");
-               const res = await promoteSelfToAdmin();
-               if (res.success) {
-                 window.location.reload();
-               } else {
-                 alert(res.error);
-               }
-             }}
-             className="px-4 py-2 border border-slate-200 text-slate-500 rounded-md text-xs font-medium hover:bg-slate-50 transition-colors text-center"
-           >
-             Developer Tool: Promote to Admin
-           </button>
-        )}
       </div>
     </form>
   )
