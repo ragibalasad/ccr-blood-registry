@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { getDashboardStats } from "./actions";
 import DashboardClient from "./DashboardClient";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminDashboardPage() {
   const session = await auth.api.getSession({
     headers: await headers(),

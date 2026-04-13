@@ -3,6 +3,8 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import UsersClient from "./UsersClient";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminUsersPage(props: { searchParams: Promise<{ filter?: string }> }) {
   const session = await auth.api.getSession({
     headers: await headers(),

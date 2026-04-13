@@ -4,6 +4,8 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import SearchClient from "./SearchClient";
 
+export const dynamic = "force-dynamic";
+
 export default async function SearchPage() {
   const session = await auth.api.getSession({
     headers: await headers()

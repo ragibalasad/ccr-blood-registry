@@ -4,6 +4,8 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import ProfileForm from "@/components/ProfileForm";
 
+export const dynamic = "force-dynamic";
+
 export default async function ProfilePage() {
   const session = await auth.api.getSession({
     headers: await headers()
