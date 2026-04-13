@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { signIn, signUp } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import { Loader2, AlertTriangle } from "lucide-react";
+import { Loader2, AlertTriangle, Droplet } from "lucide-react";
 import { getSystemSettings } from "../admin/actions";
 
 export default function LoginPage() {
@@ -84,41 +84,47 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex flex-1 items-center justify-center p-4 w-full pt-10 pb-20">
-      <div className="w-full max-w-[400px]">
+    <div className="flex flex-1 items-center justify-center p-4 w-full pt-12 pb-24">
+      <div className="w-full max-w-[440px] bg-white border-2 border-slate-100 rounded-[2rem] p-8 sm:p-10 shadow-xl shadow-slate-200/40 relative overflow-hidden group">
+        
+        {/* Decorative flair behind */}
+        <div className="absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br from-red-50 to-rose-100 rounded-full blur-3xl opacity-50 pointer-events-none group-hover:opacity-70 transition-opacity duration-700" />
 
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
-            {isLogin ? "Login" : "Join Registry"}
+        <div className="relative mb-10 text-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-red-200">
+            <Droplet className="w-8 h-8 text-white" />
+          </div>
+          <h2 className="text-3xl font-bold text-slate-900 tracking-tight">
+            {isLogin ? "Welcome back" : "Join the Registry"}
           </h2>
-          <p className="text-slate-500 text-sm mt-1">
-            Access the growing network of donors
+          <p className="text-slate-500 text-sm font-medium mt-2">
+            {isLogin ? "Log in to access the donor network" : "Create an account to help save lives"}
           </p>
         </div>
 
         {error && (
-          <div className="mb-6 p-3 bg-red-50 text-red-600 text-sm rounded-md border border-red-200 font-medium">
+          <div className="mb-6 p-4 bg-red-50 text-red-600 text-sm rounded-2xl border-2 border-red-100 font-bold text-center">
             {error}
           </div>
         )}
 
         {!settings.registrationEnabled && (
-          <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3 text-amber-800 animate-in fade-in slide-in-from-top-2">
+          <div className="mb-6 p-5 bg-amber-50 border-2 border-amber-100 rounded-2xl flex items-start gap-3 text-amber-800 animate-in fade-in slide-in-from-top-2">
             <AlertTriangle className="w-5 h-5 mt-0.5 flex-shrink-0" />
             <div className="text-sm">
-                <p className="font-bold">New Registrations Paused</p>
-                <p>Signups are temporarily disabled. Existing users can still log in below.</p>
+                <p className="font-bold">Registrations Paused</p>
+                <p className="font-medium mt-0.5 opacity-90">Signups are disabled currently. Existing users can still log in.</p>
             </div>
           </div>
         )}
 
-        <div className="space-y-4">
+        <div className="space-y-6 relative">
           <button
             onClick={handleGoogleSignIn}
             disabled={loading}
-            className="w-full py-2.5 px-4 bg-white border border-slate-300 text-slate-700 rounded-md font-bold hover:bg-slate-50 transition-colors flex items-center justify-center gap-3 text-sm shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-4 px-4 bg-white border-2 border-slate-100 text-slate-700 rounded-2xl font-bold hover:bg-slate-50 hover:border-slate-200 transition-all duration-300 flex items-center justify-center gap-3 text-sm shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed group/btn"
           >
-            <svg className="w-5 h-5" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 group-hover/btn:scale-110 transition-transform" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
               <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
               <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" />
@@ -127,17 +133,17 @@ export default function LoginPage() {
             Continue with Google
           </button>
           {!settings.registrationEnabled && (
-            <p className="text-[10px] text-center text-slate-400 -mt-2">
-              Note: New accounts cannot be created via Google currently.
+            <p className="text-[10px] text-center text-slate-400 font-bold uppercase tracking-wider -mt-3 pb-2">
+              Note: New accounts cannot be created via Google
             </p>
           )}
 
-          <div className="relative my-6">
+          <div className="relative my-6 pb-2">
             <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t border-slate-200"></span>
+              <span className="w-full border-t-2 border-slate-50"></span>
             </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-slate-50 px-2 text-slate-400 font-bold tracking-widest">Or Entry</span>
+            <div className="relative flex justify-center text-xs uppercase tracking-widest font-bold">
+              <span className="bg-white px-4 text-slate-300">Or continue with email</span>
             </div>
           </div>
 
@@ -145,62 +151,65 @@ export default function LoginPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               {!isLogin && (
                 <div>
-                  <label className="block text-sm font-bold text-slate-900 mb-1.5">Full Name</label>
+                  <label className="block text-sm font-bold text-slate-700 mb-2 px-1">Full Name</label>
                   <input
                     type="text"
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full px-3 py-2 rounded-md bg-white border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 text-sm"
-                    placeholder="Student Name"
+                    className="w-full px-5 py-4 rounded-2xl bg-slate-50/50 border-2 border-slate-100 focus:bg-white focus:outline-none focus:border-red-400 focus:ring-0 text-sm font-medium text-slate-900 placeholder-slate-300 transition-all duration-300"
+                    placeholder="e.g. John Doe"
                   />
                 </div>
               )}
 
               <div>
-                <label className="block text-sm font-bold text-slate-900 mb-1.5">Email</label>
+                <label className="block text-sm font-bold text-slate-700 mb-2 px-1">College Email</label>
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3 py-2 rounded-md bg-white border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 text-sm"
-                  placeholder="college@edu"
+                  className="w-full px-5 py-4 rounded-2xl bg-slate-50/50 border-2 border-slate-100 focus:bg-white focus:outline-none focus:border-red-400 focus:ring-0 text-sm font-medium text-slate-900 placeholder-slate-300 transition-all duration-300"
+                  placeholder="student@college.edu"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-slate-900 mb-1.5">Password</label>
+                <label className="block text-sm font-bold text-slate-700 mb-2 px-1">Password</label>
                 <input
                   type="password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-3 py-2 rounded-md bg-white border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 text-sm"
+                  className="w-full px-5 py-4 rounded-2xl bg-slate-50/50 border-2 border-slate-100 focus:bg-white focus:outline-none focus:border-red-400 focus:ring-0 text-sm font-medium text-slate-900 placeholder-slate-300 transition-all duration-300"
+                  placeholder="••••••••"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-2.5 bg-slate-900 text-white rounded-md font-bold hover:bg-slate-800 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 text-sm mt-2 shadow-sm"
+                className="w-full py-4 mt-4 bg-slate-900 text-white rounded-2xl text-base font-bold hover:bg-slate-800 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 flex items-center justify-center gap-3 disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-xl duration-300"
               >
-                {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-                {isLogin ? "Authenticate" : "Join Registry"}
+                {loading && <Loader2 className="w-5 h-5 animate-spin" />}
+                {isLogin ? "Authenticate" : "Create Account"}
               </button>
             </form>
           )}
 
-          <div className="mt-8 text-center">
+          <div className="pt-6 text-center border-t-2 border-slate-50">
             {settings.registrationEnabled ? (
               <button
                 onClick={() => { setIsLogin(!isLogin); setError(""); }}
-                className="text-sm text-slate-500 hover:text-slate-900 underline underline-offset-4 decoration-slate-300 font-medium"
+                className="text-sm font-bold text-slate-400 hover:text-slate-900 transition-colors py-2 px-4 rounded-xl hover:bg-slate-50"
               >
-                {isLogin ? "New to the database? Register" : "Have an account? Log in"}
+                {isLogin ? "New to the database? Register here" : "Already have an account? Log in"}
               </button>
             ) : (
-                <p className="text-xs text-slate-400 font-medium">Administrator has paused new registrations.</p>
+                <p className="text-xs text-slate-400 font-bold uppercase tracking-wide bg-slate-50 py-3 rounded-xl border border-dashed border-slate-200">
+                  Registrations are currently closed
+                </p>
             )}
           </div>
         </div>

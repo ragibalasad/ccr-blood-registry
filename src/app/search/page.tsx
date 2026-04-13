@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import SearchClient from "./SearchClient";
 
-export default async function SearchPage(props: { searchParams: Promise<{ q?: string, eligible?: string }> }) {
+export default async function SearchPage() {
   const session = await auth.api.getSession({
     headers: await headers()
   });
@@ -13,22 +13,10 @@ export default async function SearchPage(props: { searchParams: Promise<{ q?: st
     redirect("/login");
   }
 
-  const searchParams = await props.searchParams;
-  const q = searchParams.q;
-  const eligibleOnly = searchParams.eligible !== "false"; // Default to true
-
-  const ninetyDaysAgo = new Date();
-  ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
-
+  // Fetch all users with blood groups — client handles filtering
   const users = await prisma.user.findMany({
     where: {
-      bloodGroup: q ? { equals: q } : undefined,
-      ...(eligibleOnly ? {
-        OR: [
-          { lastDonatedAt: { lte: ninetyDaysAgo } },
-          { lastDonatedAt: null }
-        ]
-      } : {})
+      bloodGroup: { not: null },
     },
     select: {
       id: true,
@@ -46,14 +34,13 @@ export default async function SearchPage(props: { searchParams: Promise<{ q?: st
     }
   });
 
-  return (
-    <div className="flex flex-col flex-1 lg:px-0 py-8 max-sm:py-0 w-full">
-      <div className="mb-8 max-sm:mb-4 border-b border-slate-200 pb-8">
-        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Blood donors registry</h1>
-        <p className="text-slate-500 text-sm mt-1">Browse and filter the registry by blood type.</p>
-      </div>
+  const isPrivileged = (session.user as any).role === "admin" || (session.user as any).role === "moderator";
 
-      <SearchClient initialUsers={users} initialQuery={q || ""} initialEligible={eligibleOnly} />
+  return (
+    <div className="container mx-auto px-4 md:px-6 lg:px-8">
+      <div className="py-8 md:py-12 w-full max-w-6xl mx-auto">
+        <SearchClient initialUsers={users} isPrivileged={isPrivileged} />
+      </div>
     </div>
   );
 }

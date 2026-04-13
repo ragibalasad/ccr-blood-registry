@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { searchUsers, updateUserRole, updateUserVerification } from "../actions";
-import { Search, Check, X, ShieldAlert, GraduationCap, Loader2, UserCircle, Lock } from "lucide-react";
+import { Search, Check, X, ShieldAlert, GraduationCap, Loader2, UserCircle, Lock, Shield } from "lucide-react";
 import { useSession } from "@/lib/auth-client";
 import ConfirmModal from "../components/ConfirmModal";
 
@@ -95,28 +95,28 @@ export default function UsersClient({ initialFilter }: { initialFilter: string }
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="border-b border-slate-200 pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-16">
+      <div className="border-b border-slate-100 pb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">User Management</h1>
-          <p className="text-sm text-slate-500">Manage accounts for <span className="text-red-600 font-bold">{getFilterName()}</span></p>
+          <h1 className="text-3xl font-bold text-slate-900 tracking-tight">User Management</h1>
+          <p className="text-sm font-medium text-slate-500 mt-1">Manage accounts for <span className="text-red-500 font-bold">{getFilterName()}</span></p>
         </div>
-        <div className="text-xs font-bold text-slate-400 uppercase tracking-widest bg-slate-100 px-3 py-1.5 rounded-lg">
+        <div className="text-xs font-bold text-slate-600 uppercase tracking-widest bg-slate-100 border border-slate-200/50 px-4 py-2 rounded-xl">
           {users.length} {users.length === 1 ? 'user' : 'users'} found
         </div>
       </div>
 
-      <div className="relative group">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-red-500 transition-colors" />
+      <div className="relative group max-w-2xl">
+        <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-300 group-focus-within:text-red-500 transition-colors" />
         <input
           type="text"
           placeholder={`Search ${getFilterName().toLowerCase()}...`}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full pl-12 pr-4 py-4 bg-white border border-slate-200 rounded-2xl focus:ring-4 focus:ring-red-50 focus:border-red-500 outline-none transition-all shadow-sm group-hover:shadow-md"
+          className="w-full pl-14 pr-6 py-4 bg-white border-2 border-slate-100 rounded-2xl focus:ring-0 focus:border-red-400 outline-none transition-all shadow-sm hover:border-slate-200 font-medium text-slate-900 placeholder-slate-300 text-base"
         />
         {isSearching && (
-          <div className="absolute right-4 top-1/2 -translate-y-1/2">
+          <div className="absolute right-5 top-1/2 -translate-y-1/2">
             <Loader2 className="w-5 h-5 animate-spin text-red-500" />
           </div>
         )}
@@ -124,70 +124,70 @@ export default function UsersClient({ initialFilter }: { initialFilter: string }
 
       <div className="space-y-4">
         {users.map((user) => (
-          <div key={user.id} className="p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-lg hover:border-red-100 transition-all group">
+          <div key={user.id} className="p-5 sm:p-6 bg-white border-2 border-slate-100 rounded-3xl hover:shadow-xl hover:-translate-y-0.5 hover:border-slate-200 transition-all duration-300 group">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 overflow-hidden">
-              <div className="flex items-start gap-3 sm:gap-4 min-w-0 flex-1">
-                <div className="relative shrink-0">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center font-bold text-slate-400 uppercase text-lg sm:text-xl overflow-hidden shrink-0 group-hover:scale-105 transition-transform">
+              <div className="flex items-center gap-4 min-w-0 flex-1">
+                <div className="shrink-0">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-slate-50 border-2 border-slate-100 flex items-center justify-center font-bold text-slate-300 uppercase text-2xl overflow-hidden shrink-0 group-hover:scale-105 transition-transform duration-300">
                     {user.image ? <img src={user.image} alt={user.name} referrerPolicy="no-referrer" className="w-full h-full object-cover" /> : <UserCircle className="w-8 h-8" />}
                   </div>
                 </div>
                 
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2 flex-wrap mb-1.5 overflow-hidden">
-                    <h4 className="font-bold text-slate-900 text-base sm:text-lg leading-none truncate max-w-full" title={user.name}>
+                  <div className="flex items-center gap-2 flex-wrap mb-1 overflow-hidden">
+                    <h4 className="font-bold text-slate-900 text-lg leading-none truncate max-w-full" title={user.name}>
                       {user.name}
                     </h4>
-                    <div className="flex gap-1.5 shrink-0">
+                    <div className="flex gap-1.5 shrink-0 ml-1">
                       {user.verified ? (
-                        <div className="flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 bg-emerald-50 text-emerald-600 rounded-lg border border-emerald-100 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider">
-                          <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 stroke-[3]" /> Verified
+                        <div className="flex items-center gap-1 px-2.5 py-1 bg-emerald-50 text-emerald-600 rounded-lg border-2 border-emerald-100 text-[10px] font-bold uppercase tracking-wider">
+                          <Check className="w-3 h-3 stroke-[3]" /> Verified
                         </div>
                       ) : (
-                        <div className="flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 bg-slate-50 text-slate-400 rounded-lg border border-slate-100 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider">
+                        <div className="flex items-center gap-1 px-2.5 py-1 bg-slate-50 text-slate-400 rounded-lg border-2 border-slate-100/50 text-[10px] font-bold uppercase tracking-wider">
                           Pending
                         </div>
                       )}
                     </div>
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-500 font-medium mb-2 truncate max-w-full" title={user.email}>
+                  <p className="text-sm text-slate-500 font-medium mb-2 truncate max-w-full" title={user.email}>
                     {user.email}
                   </p>
                   {user.department && (
-                    <div className="flex items-center gap-1.5 text-[10px] sm:text-xs text-slate-400 font-bold uppercase tracking-wide truncate max-w-full" title={`${user.department} ${user.sessionYear || ''}`}>
-                      <GraduationCap className="w-3 sm:w-3.5 h-3 sm:h-3.5 shrink-0" />
+                    <div className="flex items-center gap-1.5 text-[11px] text-slate-400 font-bold uppercase tracking-wide truncate max-w-full">
+                      <GraduationCap className="w-3.5 h-3.5 shrink-0 text-slate-300" />
                       <span className="truncate">{user.department} {user.sessionYear ? `• ${user.sessionYear}` : ''}</span>
                     </div>
                   )}
                 </div>
               </div>
 
-              <div className="flex flex-row items-center gap-2 bg-slate-50 p-2 rounded-xl border border-slate-100 shrink-0 w-full lg:w-auto">
+              <div className="flex flex-row items-center gap-2 bg-slate-50/50 p-2 rounded-2xl border-2 border-slate-100/60 shrink-0 w-full lg:w-auto">
                 <button
                   onClick={() => handleToggleVerification(user.id, user.verified)}
-                  className={`flex-1 lg:flex-none flex items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-lg border transition-all text-xs sm:text-sm font-bold shadow-sm ${user.verified
-                    ? 'bg-white text-slate-400 border-slate-200 hover:text-red-600 hover:border-red-200'
-                    : 'bg-emerald-600 text-white border-emerald-600 hover:bg-emerald-700'
+                  className={`flex-1 lg:flex-none flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border-2 transition-all duration-300 text-xs font-bold shadow-sm ${user.verified
+                    ? 'bg-white text-slate-500 border-slate-100 hover:text-red-600 hover:border-red-100'
+                    : 'bg-emerald-500 text-white border-emerald-500 hover:bg-emerald-600 hover:border-emerald-600'
                     }`}
                   title={user.verified ? "Remove Verification" : "Verify Donor"}
                 >
-                  {user.verified ? <X className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[3]" /> : <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[3]" />}
+                  {user.verified ? <X className="w-3.5 h-3.5 stroke-[3]" /> : <Check className="w-3.5 h-3.5 stroke-[3]" />}
                   <span>{user.verified ? "Unverify" : "Verify"}</span>
                 </button>
                 
-                <div className="w-px h-6 bg-slate-200 mx-0.5" />
+                <div className="w-0.5 h-6 bg-slate-200 mx-1 rounded-full" />
                 
                 <div className="flex-1 lg:flex-none relative h-full">
                   {isAdmin ? (
-                    <ShieldAlert className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-400 pointer-events-none" />
+                    <Shield className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-violet-400 pointer-events-none" />
                   ) : (
-                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-400 pointer-events-none" />
+                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300 pointer-events-none" />
                   )}
                   <select
                     value={user.role}
                     disabled={!isAdmin}
                     onChange={(e) => handleUpdateRole(user.id, e.target.value)}
-                    className={`w-full h-full pl-8 sm:pl-9 pr-6 sm:pr-8 py-2 bg-white text-slate-700 border border-slate-200 rounded-lg transition-all font-bold text-xs sm:text-sm shadow-sm outline-none appearance-none ${isAdmin ? 'hover:bg-slate-50 hover:border-red-100 focus:ring-2 focus:ring-red-100 cursor-pointer' : 'opacity-60 cursor-not-allowed'}`}
+                    className={`w-full h-full pl-9 pr-8 py-2.5 bg-white text-slate-700 border-2 border-slate-100 rounded-xl transition-all duration-300 font-bold text-xs uppercase tracking-wider shadow-sm outline-none appearance-none ${isAdmin ? 'hover:bg-slate-50 hover:border-violet-100 focus:border-violet-400 cursor-pointer' : 'opacity-60 cursor-not-allowed'}`}
                   >
                     <option value="user">User</option>
                     <option value="moderator">Moderator</option>
@@ -200,25 +200,25 @@ export default function UsersClient({ initialFilter }: { initialFilter: string }
         ))}
 
         {searchQuery.length >= 2 && users.length === 0 && !isSearching && (
-          <div className="p-20 text-center bg-white border border-dashed border-slate-200 rounded-3xl flex flex-col items-center">
-            <div className="p-4 bg-slate-50 rounded-full mb-4">
-              <Search className="w-10 h-10 text-slate-300" />
+          <div className="p-20 text-center bg-white border-2 border-dashed border-slate-200 rounded-3xl flex flex-col items-center">
+            <div className="p-5 bg-slate-50 border-2 border-slate-100 rounded-2xl mb-4">
+              <Search className="w-8 h-8 text-slate-300" />
             </div>
-            <h3 className="font-bold text-slate-900 mb-1">No users found</h3>
-            <p className="text-slate-500 text-sm max-w-xs mx-auto">We couldn't find any accounts matching "{searchQuery}". Try a different term.</p>
+            <h3 className="font-bold text-slate-900 text-lg mb-1">No users found</h3>
+            <p className="text-slate-500 text-sm font-medium max-w-xs mx-auto">We couldn't find any accounts matching "{searchQuery}".</p>
           </div>
         )}
 
         {searchQuery.length > 0 && searchQuery.length < 2 && (
-          <div className="p-12 text-center bg-slate-50/50 rounded-2xl border border-dashed border-slate-200">
-            <p className="text-slate-500 text-sm font-medium animate-pulse">Waiting for your input...</p>
+          <div className="p-12 text-center bg-slate-50/50 rounded-3xl border-2 border-dashed border-slate-200">
+            <p className="text-slate-400 text-sm font-bold uppercase tracking-widest animate-pulse">Waiting for input...</p>
           </div>
         )}
 
         {searchQuery.length === 0 && users.length === 0 && !isSearching && (
-          <div className="p-16 text-center bg-slate-50/30 rounded-3xl border border-dashed border-slate-200 flex flex-col items-center">
-            <UserCircle className="w-12 h-12 text-slate-200 mb-4" />
-            <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">No users found in this category</p>
+          <div className="p-16 text-center bg-slate-50/50 rounded-3xl border-2 border-dashed border-slate-200 flex flex-col items-center">
+            <UserCircle className="w-12 h-12 text-slate-300 mb-4" />
+            <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">No users in this category</p>
           </div>
         )}
       </div>

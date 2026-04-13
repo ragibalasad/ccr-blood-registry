@@ -22,13 +22,16 @@ export default async function ProfilePage() {
   }
 
   return (
-    <div className="flex flex-col flex-1 py-8 max-sm:py-0 w-full max-w-3xl">
-      <div className="mb-8 border-b border-slate-200 pb-8">
-        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">My Record</h1>
-        <p className="text-slate-500 text-sm mt-1">Manage your information and contact details.</p>
-      </div>
+    <div className="container mx-auto px-4">
+      <div className="py-8 md:py-12 w-full max-w-3xl mx-auto">
+        {/* Page Header */}
+        <div className="mb-10 pb-6 border-b border-slate-200 text-center">
+          <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Profile Settings</h1>
+          <p className="text-slate-500 text-base mt-2">Manage your student details and registry availability.</p>
+        </div>
 
-      <ProfileForm user={user} />
+        <ProfileForm user={user} />
+      </div>
     </div>
   );
 }
