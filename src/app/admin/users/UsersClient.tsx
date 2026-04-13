@@ -9,11 +9,11 @@ import ConfirmModal from "../components/ConfirmModal";
 export default function UsersClient({ initialFilter }: { initialFilter: string }) {
   const { data: session } = useSession();
   const isAdmin = (session?.user as any)?.role === "admin";
-  
+
   const [searchQuery, setSearchQuery] = useState("");
   const [users, setUsers] = useState<any[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  
+
   // Modal State
   const [confirmModal, setConfirmModal] = useState<{
     isOpen: boolean;
@@ -25,7 +25,7 @@ export default function UsersClient({ initialFilter }: { initialFilter: string }
     isOpen: false,
     title: "",
     message: "",
-    action: async () => {},
+    action: async () => { },
     variant: "warning",
   });
 
@@ -132,7 +132,7 @@ export default function UsersClient({ initialFilter }: { initialFilter: string }
                     {user.image ? <img src={user.image} alt={user.name} referrerPolicy="no-referrer" className="w-full h-full object-cover" /> : <UserCircle className="w-8 h-8" />}
                   </div>
                 </div>
-                
+
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2 flex-wrap mb-1 overflow-hidden">
                     <h4 className="font-bold text-slate-900 text-lg leading-none truncate max-w-full" title={user.name}>
@@ -174,10 +174,10 @@ export default function UsersClient({ initialFilter }: { initialFilter: string }
                   {user.verified ? <X className="w-3.5 h-3.5 stroke-[3]" /> : <Check className="w-3.5 h-3.5 stroke-[3]" />}
                   <span>{user.verified ? "Unverify" : "Verify"}</span>
                 </button>
-                
+
                 <div className="w-0.5 h-6 bg-slate-200 mx-1 rounded-full" />
-                
-                <div className="flex-1 lg:flex-none relative h-full">
+
+                <div className="flex-1.5 lg:flex-none relative h-full">
                   {isAdmin ? (
                     <Shield className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-violet-400 pointer-events-none" />
                   ) : (
@@ -187,7 +187,7 @@ export default function UsersClient({ initialFilter }: { initialFilter: string }
                     value={user.role}
                     disabled={!isAdmin}
                     onChange={(e) => handleUpdateRole(user.id, e.target.value)}
-                    className={`w-full h-full pl-9 pr-8 py-2.5 bg-white text-slate-700 border-2 border-slate-100 rounded-xl transition-all duration-300 font-bold text-xs uppercase tracking-wider shadow-sm outline-none appearance-none ${isAdmin ? 'hover:bg-slate-50 hover:border-violet-100 focus:border-violet-400 cursor-pointer' : 'opacity-60 cursor-not-allowed'}`}
+                    className={`w-full h-full pl-9 pr-8 py-2.5 bg-white text-slate-700 border-2 border-slate-100 rounded-xl transition-all duration-300 font-bold text-xs shadow-sm outline-none appearance-none truncate ${isAdmin ? 'hover:bg-slate-50 hover:border-violet-100 focus:border-violet-400 cursor-pointer' : 'opacity-60 cursor-not-allowed'}`}
                   >
                     <option value="user">User</option>
                     <option value="moderator">Moderator</option>

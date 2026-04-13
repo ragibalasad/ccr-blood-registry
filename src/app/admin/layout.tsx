@@ -32,16 +32,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <div className="container mx-auto px-4 md:px-6 lg:px-8 flex flex-col md:flex-row gap-8 items-start w-full py-8 md:py-12 max-sm:mt-4">
       {/* ── Mobile Navigation (Top Bar) ── */}
-      <nav className="md:hidden fixed top-16 left-0 right-0 z-30 bg-white/90 backdrop-blur-xl border-b-2 border-slate-100 px-4 py-3 flex items-center justify-between shadow-sm overflow-x-auto no-scrollbar gap-3">
+      <nav className="md:hidden fixed top-20 left-0 right-0 z-30 bg-white/90 backdrop-blur-xl border-b-2 border-slate-100 px-4 py-3 flex items-center justify-between shadow-sm overflow-x-auto no-scrollbar gap-3">
         {navItems.map((item) => {
           const isActive = pathname === item.href || (item.subItems && pathname.startsWith(item.href));
           return (
             <Link
               key={item.name}
               href={item.href}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl whitespace-nowrap transition-all duration-300 font-bold text-xs uppercase tracking-wider ${
-                isActive ? "bg-slate-900 text-white shadow-lg shadow-slate-200" : "bg-slate-50 text-slate-500 hover:bg-slate-100 hover:text-slate-900 border border-slate-100"
-              }`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl whitespace-nowrap transition-all duration-300 font-bold text-xs tracking-wider ${isActive ? "bg-slate-900 text-white shadow-lg shadow-slate-200" : "bg-slate-50 text-slate-500 hover:bg-slate-100 hover:text-slate-900 border border-slate-100"
+                }`}
             >
               <item.icon className="w-4 h-4 shrink-0" />
               <span>{item.name}</span>
@@ -69,8 +68,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <div key={item.name} className="flex flex-col gap-1.5">
                 <Link
                   href={item.href}
-                  className={`group flex items-center justify-between px-4 py-3.5 rounded-2xl transition-all duration-300 ${
-                    isActive
+                  className={`group flex items-center justify-between px-4 py-3.5 rounded-2xl transition-all duration-300 ${isActive
                     ? "bg-slate-900 text-white shadow-lg shadow-slate-200"
                     : "text-slate-500 hover:bg-slate-50 hover:text-slate-900 font-medium"
                     }`}
@@ -88,14 +86,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     {item.subItems.map((sub) => {
                       const currentFilter = searchParams.get("filter") || "";
                       const subActive = currentFilter === sub.filter;
-                      
+
                       return (
                         <Link
                           key={sub.href}
                           href={sub.href}
-                          className={`text-xs font-bold py-2 transition-all duration-200 flex items-center gap-2 ${
-                            subActive ? "text-slate-900 flex" : "text-slate-400 hover:text-slate-600"
-                          }`}
+                          className={`text-sm font-bold py-2 transition-all duration-200 flex items-center gap-2 ${subActive ? "text-slate-900 flex" : "text-slate-400 hover:text-slate-600"
+                            }`}
                         >
                           {subActive && <div className="w-1.5 h-1.5 rounded-full bg-red-500" />}
                           {sub.name}

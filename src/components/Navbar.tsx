@@ -80,7 +80,7 @@ export default function Navbar() {
                   <div className="w-9 h-9 rounded-[10px] bg-slate-900 flex items-center justify-center text-white text-sm font-bold uppercase overflow-hidden shadow-sm">
                     {(session.user as any).name?.charAt(0) || <User className="w-5 h-5" />}
                   </div>
-                  <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-300 mr-2 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
               ) : !isPending ? (
                 <div className="flex items-center gap-3">

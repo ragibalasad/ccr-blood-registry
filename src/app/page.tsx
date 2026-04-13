@@ -306,7 +306,7 @@ export default function Home() {
                 return (
                   <div
                     key={bg}
-                    className="group relative bg-white border-2 border-slate-100 rounded-[2.5rem] p-8 md:p-10 flex flex-col items-center gap-6 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden"
+                    className="group relative bg-white border-2 border-slate-100 rounded-[2.5rem] md:p-10 flex flex-col items-center gap-6 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden"
                   >
                     {/* Background Progress Fill */}
                     <div
@@ -320,10 +320,10 @@ export default function Home() {
                     </div>
 
                     <div
-                      className={`relative w-24 h-24 rounded-[2rem] bg-gradient-to-br ${bgForGroup(bg)} flex items-center justify-center shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-transform overflow-hidden`}
+                      className={`relative w-20 h-20 rounded-[2rem] bg-gradient-to-br ${bgForGroup(bg)} flex items-center justify-center shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-transform overflow-hidden`}
                     >
-                      <Droplet className="absolute top-3 left-3 w-5 h-5 text-white/40 fill-white/20" />
-                      <span className="text-3xl font-bold text-white drop-shadow-sm">{bg}</span>
+                      <Droplet className="absolute top-3 left-3 w-4 h-4 text-white/40 fill-white/20" />
+                      <span className="text-2xl font-bold text-white drop-shadow-sm">{bg}</span>
                     </div>
 
                     <div className="text-center relative">
