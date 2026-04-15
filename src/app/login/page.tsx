@@ -84,9 +84,9 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex flex-1 items-center justify-center p-4 w-full pt-12 pb-24">
-      <div className="w-full max-w-[440px] bg-white border-2 border-slate-100 rounded-[2rem] p-8 sm:p-10 shadow-xl shadow-slate-200/40 relative overflow-hidden group">
-        
+    <div className="flex flex-1 items-center justify-center sm:px-4 w-full pt-6 sm:pt-12 pb-24">
+      <div className="w-full max-w-[480px] bg-white border-2 border-slate-100 rounded-[2rem] py-8 sm:px-8 shadow-xl shadow-slate-200/40 relative overflow-hidden group">
+
         {/* Decorative flair behind */}
         <div className="absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br from-red-50 to-rose-100 rounded-full blur-3xl opacity-50 pointer-events-none group-hover:opacity-70 transition-opacity duration-700" />
 
@@ -112,8 +112,8 @@ export default function LoginPage() {
           <div className="mb-6 p-5 bg-amber-50 border-2 border-amber-100 rounded-2xl flex items-start gap-3 text-amber-800 animate-in fade-in slide-in-from-top-2">
             <AlertTriangle className="w-5 h-5 mt-0.5 flex-shrink-0" />
             <div className="text-sm">
-                <p className="font-bold">Registrations Paused</p>
-                <p className="font-medium mt-0.5 opacity-90">Signups are disabled currently. Existing users can still log in.</p>
+              <p className="font-bold">Registrations Paused</p>
+              <p className="font-medium mt-0.5 opacity-90">Signups are disabled currently. Existing users can still log in.</p>
             </div>
           </div>
         )}
@@ -207,9 +207,9 @@ export default function LoginPage() {
                 {isLogin ? "New to the database? Register here" : "Already have an account? Log in"}
               </button>
             ) : (
-                <p className="text-xs text-slate-400 font-bold uppercase tracking-wide bg-slate-50 py-3 rounded-xl border border-dashed border-slate-200">
-                  Registrations are currently closed
-                </p>
+              <p className="text-xs text-slate-400 font-bold uppercase tracking-wide bg-slate-50 py-3 rounded-xl border border-dashed border-slate-200">
+                Registrations are currently closed
+              </p>
             )}
           </div>
         </div>

@@ -85,7 +85,7 @@ export default function Home() {
   const allBloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
   return (
-    <div className="flex flex-col flex-1 container mx-auto pt-6 px-4 md:px-6 lg:px-8">
+    <div className="flex flex-col flex-1">
       {/* ── Maintenance Banners ─────────────────────────────── */}
       {!settings.registrationEnabled && (
         <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-xl flex items-center justify-center gap-3 text-amber-800 max-w-3xl mx-auto shadow-sm">
@@ -106,7 +106,7 @@ export default function Home() {
         <div className="pointer-events-none absolute -top-24 -left-24 w-96 h-96 bg-red-50 rounded-full mix-blend-multiply opacity-70 blur-3xl animate-pulse" />
         <div className="pointer-events-none absolute top-1/2 -right-24 w-80 h-80 bg-rose-50 rounded-full mix-blend-multiply opacity-50 blur-3xl" />
 
-        <div className="container mx-auto px-4 relative">
+        <div className="relative">
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
 
             {/* Left: Content */}
@@ -256,10 +256,10 @@ export default function Home() {
                       {s.icon}
                     </div>
                     <div className="flex flex-col items-center lg:items-start">
-                      <span className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+                      <span className="text-2xl md:text-4xl font-bold text-slate-900 tracking-tight">
                         <AnimatedCount target={s.value} suffix={(s as any).suffix} />
                       </span>
-                      <p className="text-xs md:text-sm text-slate-400 mt-2 font-bold uppercase tracking-wider">{s.label}</p>
+                      <p className="text-xs md:text-sm text-slate-500 mt-2 font-semibold tracking-wider">{s.label}</p>
                     </div>
                   </div>
                 ))}
@@ -277,7 +277,7 @@ export default function Home() {
           {/* Subtle background pattern */}
           <div className="absolute inset-0 opacity-[0.03] pointer-events-none fill-slate-900" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 0)', backgroundSize: '40px 40px' }} />
 
-          <div className="container mx-auto px-4 relative">
+          <div className="relative">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight mb-4">
                 Registry Strength
@@ -366,7 +366,7 @@ export default function Home() {
 
       {/* ── How It Works ────────────────────────────────────── */}
       <section className="py-24 md:py-32 bg-white relative">
-        <div className="container mx-auto px-4">
+        <div className="">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight mb-4">
               How It Works
@@ -436,7 +436,7 @@ export default function Home() {
 
       {/* ── Eligibility Note ────────────────────────────────── */}
       <section className="py-24 md:py-32 bg-slate-50 border-y border-slate-200">
-        <div className="container mx-auto px-4">
+        <div className="">
           <div className="max-w-4xl mx-auto">
             <div className="bg-white rounded-[2.5rem] p-8 md:p-16 text-slate-900 shadow-2xl relative overflow-hidden border border-slate-200">
               <div className="absolute top-0 right-0 w-64 h-64 bg-red-50 blur-[100px] -mr-32 -mt-32 opacity-50" />
@@ -480,7 +480,7 @@ export default function Home() {
           <div className="absolute top-1/2 left-0 w-64 h-64 bg-slate-50 rounded-full blur-3xl -ml-32 -translate-y-1/2 opacity-50" />
           <div className="absolute top-1/2 right-0 w-64 h-64 bg-red-50 rounded-full blur-3xl -mr-32 -translate-y-1/2 opacity-50" />
 
-          <div className="container mx-auto px-4 relative">
+          <div className="relative">
             <div className="max-w-2xl mx-auto">
               <Droplet className="w-12 h-12 text-red-600 mx-auto mb-8 fill-red-600 animate-bounce opacity-80" />
               <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-8 tracking-tight leading-tight">
