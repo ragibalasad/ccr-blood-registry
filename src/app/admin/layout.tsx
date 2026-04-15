@@ -30,7 +30,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   ];
 
   return (
-    <div className="container mx-auto px-4 md:px-6 lg:px-8 flex flex-col md:flex-row gap-8 items-start w-full py-8 md:py-12 max-sm:mt-4">
+    <div className="flex flex-col md:flex-row gap-8 items-start w-full py-8 md:py-12 max-sm:mt-4">
       {/* ── Mobile Navigation (Top Bar) ── */}
       <nav className="md:hidden fixed top-20 left-0 right-0 z-30 bg-white/90 backdrop-blur-xl border-b-2 border-slate-100 px-4 py-3 flex items-center justify-between shadow-sm overflow-x-auto no-scrollbar gap-3">
         {navItems.map((item) => {
@@ -39,7 +39,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <Link
               key={item.name}
               href={item.href}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl whitespace-nowrap transition-all duration-300 font-bold text-xs tracking-wider ${isActive ? "bg-slate-900 text-white shadow-lg shadow-slate-200" : "bg-slate-50 text-slate-500 hover:bg-slate-100 hover:text-slate-900 border border-slate-100"
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl whitespace-nowrap transition-all duration-300 font-bold text-xs tracking-wide ${isActive ? "bg-slate-900 text-white shadow-lg shadow-slate-200" : "bg-slate-50 text-slate-500 hover:bg-slate-100 hover:text-slate-900 border border-slate-100"
                 }`}
             >
               <item.icon className="w-4 h-4 shrink-0" />
@@ -50,8 +50,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </nav>
 
       {/* ── Sidebar (Desktop Only) ── */}
-      <aside className="hidden md:flex w-72 shrink-0 flex-col gap-4 sticky top-24 bg-white self-start p-6 rounded-[2rem] border-2 border-slate-100 shadow-sm transition-all duration-300 hover:shadow-xl">
-        <div className="flex items-center gap-3 px-2 pb-6 border-b-2 border-slate-50">
+      <aside className="hidden md:flex w-72 shrink-0 flex-col gap-4 sticky top-24 bg-white self-start px-4 py-6 rounded-[2rem] border-2 border-slate-100 shadow-sm transition-all duration-300 hover:shadow-xl">
+        <div className="flex items-center gap-3 pb-6 border-b-2 border-slate-50">
           <div className="p-2.5 bg-gradient-to-br from-violet-500 to-fuchsia-600 rounded-2xl text-white shadow-lg shadow-violet-200">
             <Shield className="w-6 h-6" />
           </div>

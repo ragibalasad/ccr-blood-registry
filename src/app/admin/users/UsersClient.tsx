@@ -124,7 +124,7 @@ export default function UsersClient({ initialFilter }: { initialFilter: string }
 
       <div className="space-y-4">
         {users.map((user) => (
-          <div key={user.id} className="p-5 sm:p-6 bg-white border-2 border-slate-100 rounded-3xl hover:shadow-xl hover:-translate-y-0.5 hover:border-slate-200 transition-all duration-300 group">
+          <div key={user.id} className="p-4 sm:p-6 bg-white border-2 border-slate-100 rounded-3xl hover:shadow-xl hover:-translate-y-0.5 hover:border-slate-200 transition-all duration-300 group">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 overflow-hidden">
               <div className="flex items-center gap-4 min-w-0 flex-1">
                 <div className="shrink-0">

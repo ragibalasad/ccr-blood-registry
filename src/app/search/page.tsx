@@ -39,10 +39,8 @@ export default async function SearchPage() {
   const isPrivileged = (session.user as any).role === "admin" || (session.user as any).role === "moderator";
 
   return (
-    <div className="container mx-auto px-4 md:px-6 lg:px-8">
-      <div className="py-8 md:py-12 w-full max-w-6xl mx-auto">
-        <SearchClient initialUsers={users} isPrivileged={isPrivileged} />
-      </div>
+    <div className="py-8 md:py-12 w-full mx-auto">
+      <SearchClient initialUsers={users} isPrivileged={isPrivileged} />
     </div>
   );
 }

@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.className} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-slate-50 text-slate-900">
         <Navbar />
-        <main className="flex-1 flex flex-col w-full">
+        <main className="container max-w-7xl mx-auto px-4 md:px-6 lg:px-8 flex-1 flex flex-col w-full">
           {children}
         </main>
       </body>
