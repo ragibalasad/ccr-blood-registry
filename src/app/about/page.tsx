@@ -16,7 +16,7 @@ export default function AboutPage() {
             <span className="bg-gradient-to-r from-red-600 to-rose-500 bg-clip-text text-transparent">Saving Lives.</span>
           </h1>
           <p className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            CCR Blood Registry is a community-driven platform dedicated to connecting students and making blood donation accessible during emergencies at Carmichael College Rangpur.
+            Domar Blood Group is a community-driven platform dedicated to connecting students and making blood donation accessible during emergencies.
           </p>
         </div>
       </section>
@@ -55,7 +55,7 @@ export default function AboutPage() {
             <div className="relative">
               <div className="absolute inset-0 bg-red-600 rounded-[3rem] rotate-3 opacity-5" />
               <div className="relative bg-white border-2 border-slate-100 p-8 md:p-12 rounded-[3rem] shadow-2xl">
-                <h3 className="text-2xl font-bold text-slate-900 mb-6">Why CCR Registry?</h3>
+                <h3 className="text-2xl font-bold text-slate-900 mb-6">Why Domar Blood Group?</h3>
                 <ul className="space-y-6">
                   {[
                     "100% Student-verified network",

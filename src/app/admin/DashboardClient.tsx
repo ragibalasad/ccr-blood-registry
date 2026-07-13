@@ -30,7 +30,7 @@ export default function DashboardClient({ stats }: { stats: any }) {
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="border-b border-slate-100 pb-6">
         <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Admin Dashboard</h1>
-        <p className="text-sm text-slate-500 font-medium mt-1">Overview of the blood registry system status</p>
+        <p className="text-sm text-slate-500 font-medium mt-1">Overview of the Domar Blood Group system status</p>
       </div>
 
       {/* ── Stats Summary Cards ── */}

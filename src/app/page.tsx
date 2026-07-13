@@ -117,7 +117,7 @@ export default function Home() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-600 opacity-75" />
                   <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-600" />
                 </span>
-                CCR Blood Registry
+                Domar Blood Group
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight mb-6 leading-[1.1]">
@@ -129,8 +129,8 @@ export default function Home() {
               </h1>
 
               <p className="text-lg md:text-xl text-slate-600 mb-10 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                A student-run, emergency database for Carmichael College students.
-                Joining the registry today could save a life tomorrow.
+                A student-run, emergency blood donor network for the people of Domar.
+                Joining today could save a life tomorrow.
               </p>
 
               {/* ── Profile completion banner (Compact) ──────────── */}
@@ -383,7 +383,7 @@ export default function Home() {
                 step: "01",
                 icon: <UserPlus className="w-8 h-8" />,
                 title: "Sign Up",
-                desc: "Create an account using your Google login. Only authenticated CCR students can join.",
+                desc: "Create an account using your Google login. Only authenticated students can join.",
                 color: "text-blue-600",
                 bg: "bg-blue-50",
                 border: "border-blue-100",
@@ -487,7 +487,7 @@ export default function Home() {
                 Ready to save a life today?
               </h2>
               <p className="text-slate-500 text-xl mb-12 leading-relaxed">
-                Join hundreds of your peers from Carmichael College in building Rangpur&apos;s most reliable student donor network.
+                Join students from across Domar in building Rangpur&apos;s most reliable student donor network.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 {settings.registrationEnabled ? (
@@ -509,7 +509,7 @@ export default function Home() {
                 )}
               </div>
               <p className="mt-8 text-slate-400 text-sm font-medium italic">
-                Open to all students of Carmichael College Rangpur
+                Open to all students in Domar
               </p>
             </div>
           </div>

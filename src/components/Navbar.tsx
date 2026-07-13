@@ -47,8 +47,7 @@ export default function Navbar() {
               <Droplet className="w-5 h-5 text-white" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-bold text-slate-900 leading-none">Blood Registry</span>
-              <span className="text-xs font-medium text-slate-400 leading-none mt-1.5 whitespace-nowrap">Carmichael College Rangpur</span>
+              <span className="text-xl font-bold text-slate-900 leading-none">Domar Blood Group</span>
             </div>
           </Link>
 

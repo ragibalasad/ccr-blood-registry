@@ -9,8 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "CCR Blood Group Database",
-  description: "Carmichael College blood donor registry",
+  title: "Domar Blood Group",
+  description: "Domar Blood Group blood donor registry",
 };
 
 export default function RootLayout({
